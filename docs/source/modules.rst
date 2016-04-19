@@ -41,4 +41,17 @@ Contents:
    :maxdepth: 1
    
    modules.util.jsons
+   
+Application package
+-------------------
+
+It contains built-in appications using *resort* engine package.
+
+Contents:
+
+.. toctree::
+   :maxdepth: 1
+   
+   modules.application.shell
+   modules.application.gtk
 

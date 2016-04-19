@@ -26,7 +26,9 @@ setup(
 	
 	packages=find_packages("packages"),
 	namespace_packages=[
-		"resort"
+		"resort",
+		"resort.application",
+		"resort.component"
 	],
 	package_dir={
 		"": "packages"
