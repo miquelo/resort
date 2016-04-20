@@ -35,8 +35,8 @@ project = "RESORT"
 version = "0.1.0"
 release = "0.1.0"
 
-copyright = "2015, Miquel A. Ferran"
-author = "Miquel A. Ferran"
+copyright = "2015, Miquel A. Ferran Gonzalez"
+author = "Miquel A. Ferran Gonzalez"
 
 language = None
 exclude_patterns = []

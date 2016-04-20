@@ -3,18 +3,6 @@ Modules
 
 All modules are under *resort* namespace.
 
-Component package
------------------
-
-It contains core component modules of *resort* catalog.
-
-Contents:
-
-.. toctree::
-   :maxdepth: 1
-   
-   modules.component.vagrant
-   
 Engine package
 --------------
 
@@ -27,13 +15,26 @@ Contents:
    :maxdepth: 1
    
    modules.engine
+   modules.engine.execution
    modules.engine.task
+
+Component package
+-----------------
+
+It contains core component modules of *resort* catalog.
+
+Contents:
+
+.. toctree::
+   :maxdepth: 1
+   
+   modules.component.vagrant
    
 Utility package
 ---------------
 
-It contains util modules used by *resort* modules but can also be used by
-external modules.
+It contains utility modules used by *resort* modules but can also be used by
+any other modules.
 
 Contents:
 
