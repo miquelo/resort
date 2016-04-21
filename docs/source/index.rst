@@ -4,9 +4,11 @@ Welcome to RESORT's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    
-   modules
+   engine
+   component
+   application
    
 Indices and tables
 ==================

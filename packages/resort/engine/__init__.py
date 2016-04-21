@@ -15,8 +15,6 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
 """
 Package containing engine classes.
 
@@ -70,6 +68,8 @@ Package containing engine classes.
       :param execution.Context context:
          Current execution context.
 """
+
+import os
 
 class ProfileManager:
 
