@@ -8,6 +8,12 @@ Profiles, components and execution plans are basic terms of *resort* engine.
    
 Interfaces
 ----------
+
+.. toctree::
+   :maxdepth: 1
+   
+   engine/interfaces/component
+   engine/interfaces/profile
    
 Modules
 -------

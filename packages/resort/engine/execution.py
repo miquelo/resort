@@ -17,17 +17,6 @@
 
 """
 Engine execution classes.
-
-.. class:: Operation
-
-   Execution operation.
-   
-   .. function:: execute(context)
-   
-   Execute this operation.
-   
-   :param execution.Context context:
-      Current execution context.
 """
 
 class Plan:

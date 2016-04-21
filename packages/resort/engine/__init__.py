@@ -17,56 +17,6 @@
 
 """
 Package containing engine classes.
-
-.. class:: Profile
-
-   Specific layout of components.
-   
-   .. function:: dependencies(comp_name)
-   
-      Yields dependency component names of the specified component.
-      
-      :param string comp_name:
-         Name of the specified component.
-         
-   .. function:: definition(comp_name)
-   
-      Definition of the specified component.
-      
-      :param string comp_name:
-         Name of the specified component.
-      :rtype:
-         Component
-         
-.. class:: Component
-
-   Definition of a component.
-   
-   .. function:: available()
-   
-      Check this component is available.
-      
-      Return True if it is available or False otherwise. But it can also return
-      None if availability is not known or it is not relevant.
-      
-      :rtype:
-         bool
-      :return:
-         Component availability.
-   
-   .. function:: insert(context)
-   
-      Insert this component.
-      
-      :param execution.Context context:
-         Current execution context.
-         
-   .. function:: delete(context)
-   
-      Delete this component.
-      
-      :param execution.Context context:
-         Current execution context.
 """
 
 import os
