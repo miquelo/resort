@@ -14,7 +14,7 @@ Component layout.
       :param string comp_name:
          Name of the specified component.
          
-   .. function:: definition(comp_name)
+   .. function:: component(comp_name)
    
       Definition of the specified component.
       
