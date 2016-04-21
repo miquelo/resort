@@ -7,9 +7,9 @@ can be developed and used in the same manner.
 .. toctree::
    :maxdepth: 1
    
-   component.resource
-   component.vagrant
-   component.packer
-   component.postgresql
-   component.glassfish
+   component/resource
+   component/vagrant
+   component/packer
+   component/postgresql
+   component/glassfish
 

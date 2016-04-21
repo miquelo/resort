@@ -15,6 +15,6 @@ Modules
 .. toctree::
    :maxdepth: 1
    
-   engine.modules
-   engine.modules.execution
+   engine/modules
+   engine/modules/execution
 
