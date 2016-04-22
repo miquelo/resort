@@ -7,6 +7,10 @@ Component layout.
 
    Specific layout of components.
    
+   .. function:: properties()
+
+      Yields profile properties as ( name, value ) tuples.
+
    .. function:: dependencies(comp_name)
    
       Yields dependency component names of the specified component.
@@ -22,4 +26,3 @@ Component layout.
          Name of the specified component.
       :rtype:
          Component
-

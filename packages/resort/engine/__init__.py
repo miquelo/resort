@@ -28,8 +28,6 @@ class ProfileManager:
 	
 	:param str base_dir:
 	   Directory path of this manager.
-	:param str work_dir:
-	   Work directory.
 	"""
 	
 	def __init__(self, base_dir):
