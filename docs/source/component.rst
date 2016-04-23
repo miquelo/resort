@@ -10,6 +10,7 @@ can be developed and used in the same manner.
    component/resource
    component/vagrant
    component/packer
+   component/maven
    component/postgresql
    component/glassfish
 

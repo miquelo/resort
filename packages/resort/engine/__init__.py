@@ -49,7 +49,7 @@ class ProfileManager:
 		
 		:param string prof_name:
 		   Profile name.
-		:param string prov_name:
+		:param string prof_type:
 		   Name of profile provider.
 		:rtype:
 		   ProfileStub

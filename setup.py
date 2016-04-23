@@ -25,32 +25,16 @@ setup(
 	author_email="miquel.ferran.gonzalez@gmail.com",
 	
 	packages=find_packages("packages"),
-	namespace_packages=[
-		"resort",
-		"resort.application",
-		"resort.component"
-	],
 	package_dir={
 		"": "packages"
 	},
 	extras_require={
 		"shell-color": [
 			"colorama>=0.3.3"
-		],
-		"gtk": [
-			"gi>=3.0"
 		]
 	},
 	test_suite="testsuite.resort",
 	
-	entry_points={
-		"console_scripts": [
-			"resort=resort.application.shell:main"
-		],
-		"gui_scripts": [
-			"resort-gtk=resort.application.gtk:main"
-		]
-	},
 	url="http://pypi.python.org/pypi/resort_0.1.0/",
 	
 	license="LICENSE.txt",

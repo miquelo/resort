@@ -7,9 +7,12 @@ Component layout.
 
    Specific layout of components.
    
-   .. function:: properties()
+   .. function:: prepare(props)
 
-      Yields profile properties as ( name, value ) tuples.
+      Prepare profile and yields its properties as ( name, value ) tuples.
+      
+      :param dict props:
+         Dictionary with previous properties.
 
    .. function:: dependencies(comp_name)
    

@@ -6,9 +6,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
    
+   setup
    engine
    component
-   application
    
 Indices and tables
 ==================
