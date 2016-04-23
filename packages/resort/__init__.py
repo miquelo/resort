@@ -15,3 +15,7 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+def setup():
+
+	pass
+
