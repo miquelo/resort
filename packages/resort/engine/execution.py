@@ -33,6 +33,8 @@ class Plan:
 	
 		"""
 		Execute all operations of this plan.
+		
+		Yields events.
 		"""
 		
 		pass
@@ -40,22 +42,43 @@ class Plan:
 class Context:
 
 	"""
-	Execution context. 
+	Execution context.
+	
+	:param exec_op:
+	   Execution operation of type :class:`Insert` or :class:`Delete`.
 	"""
 	
-	def __init__(self):
+	def __init__(self, exec_op):
 	
-		pass
+		self.__exec_op = exec_op
+		
+	def next(self, exec_op):
+	
+		"""
+		Initiates a new execution operation.
+		
+		:param exec_op:
+		   Next execution operation of type :class:`Insert` or :class:`Delete`.
+		:rtype:
+		   Context
+		:return:
+		   New execution context based on this context.
+		"""
+		
+		return Context(exec_op)
 		
 class Insert:
 
 	"""
-	Insert operation. Implements :class:`Operation`.
+	Insert operation.
+	
+	:param ComponentStub comp_stub:
+	   Stub of component to be inserted.
 	"""
 	
-	def __init__(self):
+	def __init__(self, comp_stub):
 	
-		pass
+		self.__comp_stub = comp_stub
 		
 	def execute(self, context):
 	
@@ -71,12 +94,15 @@ class Insert:
 class Delete:
 
 	"""
-	Delete operation. Implements :class:`Operation`.
+	Delete operation.
+	
+	:param ComponentStub comp_stub:
+	   Stub of component to be deleted.
 	"""
 	
-	def __init__(self):
+	def __init__(self, comp_stub):
 	
-		pass
+		self.__comp_stub = comp_stub
 		
 	def execute(self, context):
 	

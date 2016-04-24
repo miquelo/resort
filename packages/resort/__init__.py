@@ -15,6 +15,8 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from resort import engine
+
 import os
 
 def setup(
@@ -31,5 +33,5 @@ def setup(
 	   Dictionary containing profile type and instance entries.
 	"""
 	
-	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles)
+	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles or {})
 

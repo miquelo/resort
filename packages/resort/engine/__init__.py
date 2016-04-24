@@ -142,4 +142,14 @@ class ProfileStub:
 		"""
 		
 		pass
+		
+class ComponentStub:
+
+	"""
+	Stub of a :class:`Component`.
+	"""
+	
+	def __init__(self):
+	
+		pass
 
