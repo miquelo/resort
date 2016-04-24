@@ -27,20 +27,26 @@ class ProfileManager:
 	Manager for profiles located in a directory.
 	
 	:param str base_dir:
-	   Directory path of this manager.
+	   Directory path of this manager. Must be absolute.
+	:param str work_dir:
+	   Working directory. From base_dir if it is relative.
+	:param dict profiles:
+	   Dictionary containing profile type and instance entries.
 	"""
 	
-	def __init__(self, base_dir):
+	def __init__(self, base_dir, work_dir, profiles):
 	
 		if not os.path.isabs(base_dir):
 			msg = "{} is not absolute".format(base_dir)
 			raise Exception(msg)
-			
-		# XXX Project must have resort directory. It creates unversioned...
-		# ... work directory and optionally has extension directory with...
-		# ... versioned contents
-		
 		self.__base_dir = base_dir
+		
+		if os.path.isabs(work_dir):
+			abs_work_dir = work_dir
+		else:
+			abs_work_dir = os.path.join(self.__base_dir, work_dir)
+			
+		self.__profiles = profiles
 		
 	def create(self, prof_name, prof_type):
 	
@@ -50,7 +56,7 @@ class ProfileManager:
 		:param string prof_name:
 		   Profile name.
 		:param string prof_type:
-		   Name of profile provider.
+		   Profile type.
 		:rtype:
 		   ProfileStub
 		:return:

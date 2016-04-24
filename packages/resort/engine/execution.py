@@ -37,6 +37,16 @@ class Plan:
 		
 		pass
 		
+class Context:
+
+	"""
+	Execution context. 
+	"""
+	
+	def __init__(self):
+	
+		pass
+		
 class Insert:
 
 	"""

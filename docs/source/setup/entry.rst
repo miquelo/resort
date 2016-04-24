@@ -1,5 +1,5 @@
-resort.setup
-============
+Entry point
+===========
 
 .. autofunction:: resort.setup
 

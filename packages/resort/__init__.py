@@ -15,7 +15,21 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-def setup():
+import os
 
-	pass
+def setup(
+	work_dir=".resort",
+	profiles=None
+):
+
+	"""
+	Configures a project to be managed by *resort*.
+	
+	:param str work_dir:
+	   Path of directory were profiles will be created.
+	:param dict profiles:
+	   Dictionary containing profile type and instance entries.
+	"""
+	
+	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles)
 
