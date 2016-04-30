@@ -17,8 +17,15 @@
 
 from resort import engine
 
+import argparse
+import colorama
+import io
 import os
+import sys
 
+#
+# Entry point
+#
 def setup(
 	work_dir=".resort",
 	profiles=None
@@ -33,5 +40,99 @@ def setup(
 	   Dictionary containing profile type and instance entries.
 	"""
 	
+	# Initialize colorama
+	colorama.init()
+	
+	# Program name
+	prog_name = sys.argv[0]
+	
+	# Profile manager
 	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles or {})
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"profile",
+		metavar="profile",
+		type=str,
+		nargs=1,
+		help="Profile name"
+	)
+	parser.add_argument(
+		"command",
+		metavar="command",
+		type=argparse_command,
+		nargs=1,
+		help="Command name"
+	)
+	parser.add_argument(
+		"arguments",
+		metavar="args",
+		nargs=argparse.REMAINDER,
+		help="Command arguments"
+	)
+	args = parser.parse_args(sys.argv[1:len(sys.argv)])
+	
+	# Execute command
+	cmd_name, cmd_fn = args.command[0]
+	cmd_prog_name = "{} profile {}".format(prog_name, cmd_name)
+	prof_name = args.profile[0]
+	prog_args = args.arguments
+	cmd_fn(cmd_prog_name, prof_mgr, prof_name, prog_args)
+	
+#
+# Command function prefix
+#
+cmd_prefix = "command_"
+
+#
+# Argument parser for command
+#
+def argparse_command(value):
+
+	try:
+		return (value, globals()["{}{}".format(cmd_prefix, value)])
+	except:
+		msg = io.StringIO()
+		msg.write("unrecognized command '")
+		msg.write(value)
+		msg.write("'\n\nAvailable commands:\n")
+		cmds = [
+			(g_name[len(cmd_prefix):], globals()[g_name])
+			for g_name in sorted(globals())
+			if g_name.startswith(cmd_prefix)
+		]
+		desc_pos = 0
+		for cmd_name, cmd in cmds:
+			desc_pos = max(desc_pos, len(cmd_name))
+		for cmd_name, cmd in cmds:
+			msg.write(cmd_name.ljust(desc_pos))
+			msg.write("  ")
+			msg.write(cmd.__doc__.strip())
+			msg.write("\n")
+		msg.seek(0)
+		raise argparse.ArgumentTypeError(msg.read())
+		
+#
+# Command status
+#
+def command_status(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Show status of component tree.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"components",
+		metavar="comps",
+		nargs=argparse.REMAINDER,
+		help="System components."
+	)
+	args = parser.parse_args(prog_args)
 

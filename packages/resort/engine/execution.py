@@ -39,6 +39,17 @@ class Plan:
 		
 		pass
 		
+	def merge(self, plan):
+	
+		"""
+		Merge this plan with the given plan.
+		
+		:param Plan plan:
+		   Plan to be merged.
+		"""
+		
+		pass
+		
 class Context:
 
 	"""

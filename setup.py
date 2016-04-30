@@ -28,7 +28,7 @@ setup(
 	package_dir={
 		"": "packages"
 	},
-	extras_require={
+	install_requires={
 		"shell-color": [
 			"colorama>=0.3.3"
 		]

@@ -84,19 +84,41 @@ class ProfileStub:
 
 	"""
 	Stub of a :class:`Profile`.
+	
+	:param str prof_name:
+	   Profile name.
+	:param Profile prof:
+	   Profile instance.
 	"""
 	
-	def __init__(self):
+	def __init__(self, prof_name, prof):
 	
-		pass
+		self.__prof_name = prof_name
+		self.__prof = prof
+		self.__comp_stub_reg = ComponentStubRegistry(self.__prof)
 		
-	def insert_plan(self, *comp_name):
+	def component(self, comp_name):
 	
 		"""
-		Prepare an insert plan for all specified component.
+		Component with the specified name.
 		
-		:param list comp_name:
-		   Specified component names.
+		:param str comp_name:
+		   Specified component name.
+		:rtype:
+		   ComponentStub
+		:return:
+		   The component stub with the specified name.
+		"""
+		
+		return self.__comp_stub_reg.get(comp_name)
+		
+	def insert_plan(self, comp_name):
+	
+		"""
+		Prepare an insert plan for specified component.
+		
+		:param str comp_name:
+		   Specified component name.
 		:rtype:
 		   execution.Plan
 		:return:
@@ -105,13 +127,13 @@ class ProfileStub:
 		
 		return None
 		
-	def delete_plan(self, *comp_name):
+	def delete_plan(self, comp_name):
 	
 		"""
-		Prepare a delete plan for all specified component.
+		Prepare a delete plan all specified component.
 		
-		:param list comp_name:
-		   Specified component names.
+		:param str comp_name:
+		   Specified component name.
 		:rtype:
 		   execution.Plan
 		:return:
@@ -125,8 +147,8 @@ class ProfileStub:
 		"""
 		Prepare an update plan for all specified component.
 		
-		:param list comp_name:
-		   Specified component names.
+		:param str comp_name:
+		   Specified component name.
 		:rtype:
 		   execution.Plan
 		:return:
@@ -143,13 +165,69 @@ class ProfileStub:
 		
 		pass
 		
+class ComponentStubRegistry:
+
+	"""
+	Registry of :class:`ComponentStub`.
+	
+	:param Profile prof:
+	   Involved profile.
+	"""
+	
+	def __init__(self, prof):
+	
+		self.__prof = prof
+		self.__cache = {}
+		
+	def get(self, comp_name):
+	
+		"""
+		Get the specified component.
+		
+		:param str comp_name:
+		   Specified component name.
+		:rtype:
+		   ComponentStub
+		:return:
+		   Specified component stub.
+		"""
+		
+		try:
+			return self.__cache[comp_name]
+		except KeyError:
+			comp = self.__prof.component(comp_name)
+			comp_stub = ComponentStub(self, comp_name, comp, self.__prof)
+			self.__cache[comp_name] = comp_stub
+			return comp_stub
+			
 class ComponentStub:
 
 	"""
 	Stub of a :class:`Component`.
+	
+	:param ComponentStubRegistry comp_stub_reg:
+	   Component stub registry.
+	:param str comp_name:
+	   Component name.
+	:param Component comp:
+	   Component instance.
+	:param Profile prof:
+	   Owner profile.
 	"""
 	
-	def __init__(self):
+	def __init__(self, comp_stub_reg, comp_name, comp, prof):
 	
-		pass
+		self.__comp_stub_reg = comp_stub_reg
+		self.__comp_name = comp_name
+		self.__comp = comp
+		self.__prof = prof
+		
+	def dependencies(self):
+	
+		"""
+		Yield :class:`ComponentStub` of dependencies of this component.
+		"""
+		
+		for dep_name in self.__prof.dependencies(self.__comp_name):
+			yield self.__comp_stub_reg.get(dep_name)
 
