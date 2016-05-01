@@ -15,7 +15,8 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from resort import engine
+import resort.engine
+import resort.engine.execution
 
 import argparse
 import colorama
@@ -47,7 +48,7 @@ def setup(
 	prog_name = sys.argv[0]
 	
 	# Profile manager
-	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles or {})
+	prof_mgr = engine.ProfileManager(os.getcwd(), work_dir, profiles)
 	
 	# Retrieve arguments
 	parser = argparse.ArgumentParser(
@@ -73,7 +74,7 @@ def setup(
 		nargs=argparse.REMAINDER,
 		help="Command arguments"
 	)
-	args = parser.parse_args(sys.argv[1:len(sys.argv)])
+	args = parser.parse_args(sys.argv[1:])
 	
 	# Execute command
 	cmd_name, cmd_fn = args.command[0]
@@ -83,16 +84,12 @@ def setup(
 	cmd_fn(cmd_prog_name, prof_mgr, prof_name, prog_args)
 	
 #
-# Command function prefix
-#
-cmd_prefix = "command_"
-
-#
 # Argument parser for command
 #
 def argparse_command(value):
 
 	try:
+		cmd_prefix = "command_"
 		return (value, globals()["{}{}".format(cmd_prefix, value)])
 	except:
 		msg = io.StringIO()
@@ -114,7 +111,67 @@ def argparse_command(value):
 			msg.write("\n")
 		msg.seek(0)
 		raise argparse.ArgumentTypeError(msg.read())
+
+#		
+# Component status printer
+#
+def print_component_status(out, context, comp_stub, last, indent):
+
+	for indent_last in indent:
+		if indent_last:
+			out.write(" ")
+		else:
+			out.write("\u2502")
+		out.write("   ")
+	if last:
+		out.write("\u2514")
+	else:
+		out.write("\u251c")
+	out.write("\u2500 ")
+	
+	avail = comp_stub.available(context)
+	if avail is True:
+		out.write(colorama.Style.BRIGHT)
+	elif avail is False:
+		out.write(colorama.Style.DIM)
+	out.write(comp_stub.name())
+	out.write(colorama.Style.RESET_ALL)
+	out.write("\n")
+	
+	deps = list(comp_stub.dependencies())
+	new_indent = []
+	new_indent.extend(indent)
+	new_indent.append(last)
+	for i, dep_stub in enumerate(deps):
+		last = i == len(deps) - 1
+		print_component_status(out, context, dep_stub, last, new_indent)
 		
+#
+# Command init
+#
+def command_init(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Initialize a profile.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"type",
+		metavar="type",
+		type=str,
+		nargs=1,
+		help="Profile type"
+	)
+	args = parser.parse_args(prog_args)
+	
+	# Profile store
+	prof_type = args.type[0]
+	prof_mgr.store(prof_name, prof_type)
+	
 #
 # Command status
 #
@@ -122,6 +179,49 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 
 	"""
 	Show status of component tree.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"components",
+		metavar="comps",
+		nargs=argparse.REMAINDER,
+		help="System components."
+	)
+	args = parser.parse_args(prog_args)
+	
+	# Profile load
+	prof_stub = prof_mgr.load(prof_name)
+	
+	# Collect component stubs
+	comp_stubs = []
+	if len(args.components) == 0:
+		comp_stub = prof_stub.component(None)
+		comp_stubs.extend(comp_stub.dependencies())
+	else:
+		for comp_name in args.components:
+			comp_stub = prof_stub.component(comp_name)
+			comp_stubs.append(comp_stub)
+			
+	# Print status
+	context = prof_stub.context()
+	out = io.StringIO()
+	for i, comp_stub in enumerate(comp_stubs):
+		last = i == len(comp_stubs) - 1
+		print_component_status(out, context, comp_stub, last, [])
+	out.seek(0)
+	sys.stdout.write(out.read())
+	
+#
+# Command insert
+#
+def command_insert(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Insert components.
 	"""
 	
 	# Retrieve arguments

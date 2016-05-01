@@ -15,28 +15,29 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from setuptools import setup, find_packages
+import os
 
-setup(
-	name="resort",
-	version="0.1.0",
+class Image:
+
+	"""
+	Packer image.
 	
-	author="RESORT Team",
-	author_email="miquel.ferran.gonzalez@gmail.com",
+	:param str base_dir:
+	   Template base directory.
+	:param str template_path:
+	   Template file path relative to ``base_dir``.
+	"""
 	
-	packages=find_packages("packages"),
-	package_dir={
-		"": "packages"
-	},
-	install_requires={
-		"colorama>=0.3.3"
-	},
-	test_suite="testsuite.resort",
+	def __init__(self, base_dir, template_path):
 	
-	url="http://pypi.python.org/pypi/resort_0.1.0/",
+		self.__base_dir = base_dir
+		self.__template_path = template_path
+		
+	def available(self, context):
 	
-	license="LICENSE.txt",
-	description="Component manager for software projects.",
-	long_description=open("README.md").read()
-)
+		"""
+		Always return ``None``.
+		"""
+		
+		return None
 

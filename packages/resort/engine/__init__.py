@@ -19,6 +19,7 @@
 Package containing engine classes.
 """
 
+import configparser
 import os
 
 class ProfileManager:
@@ -42,35 +43,35 @@ class ProfileManager:
 		self.__base_dir = base_dir
 		
 		if os.path.isabs(work_dir):
-			abs_work_dir = work_dir
+			self.__work_dir = work_dir
 		else:
-			abs_work_dir = os.path.join(self.__base_dir, work_dir)
+			self.__work_dir = os.path.join(self.__base_dir, work_dir)
 			
-		self.__profiles = profiles
+		self.__profiles = profiles or {}
 		
-	def create(self, prof_name, prof_type):
+	def __profile_stub(self, prof_name, prof_type, prof_dir):
 	
-		"""
-		Create a profile with the given name and provider.
+		try:
+			prof = self.__profiles[prof_type]
+			return ProfileStub(self.__base_dir, prof_name, prof, prof_dir)
+		except KeyError:
+			msg = "Profile of type '{}' does not exist"
+			raise Exception(msg.format(prof_type))
+			
+	def __profile_dir(self, prof_name):
+	
+		return os.path.join(self.__work_dir, prof_name)
 		
-		:param string prof_name:
-		   Profile name.
-		:param string prof_type:
-		   Profile type.
-		:rtype:
-		   ProfileStub
-		:return:
-		   An stub to created profile.
-		"""
-		
-		pass
+	def __profile_ini_path(self, prof_dir):
+	
+		return os.path.join(prof_dir, "profile.ini")
 		
 	def load(self, prof_name):
 	
 		"""
 		Load the profile with the given name.
 		
-		:param string prof_name:
+		:param str prof_name:
 		   Profile name.
 		:rtype:
 		   ProfileStub
@@ -78,7 +79,60 @@ class ProfileManager:
 		   An stub to loaded profile.
 		"""
 		
-		pass
+		prof_dir = self.__profile_dir(prof_name)
+		prof_ini_path = self.__profile_ini_path(prof_dir)
+		if not os.path.exists(prof_ini_path):
+			msg = "Profile '{}' does not exist"
+			raise Exception(msg.format(prof_name))
+			
+		# Load profile
+		prof_ini_file = open(prof_ini_path, "r")
+		prof_ini = configparser.ConfigParser()
+		prof_ini.read_file(prof_ini_file)
+		prof_ini_file.close()
+		
+		# Prepare profile
+		prof_type = prof_ini["profile"]["type"]
+		prof_stub = self.__profile_stub(prof_name, prof_type, prof_dir)
+		prof_stub.prepare(prof_ini["properties"])
+		
+		return prof_stub
+		
+	def store(self, prof_name, prof_type):
+	
+		"""
+		Store a profile with the given name and type.
+		
+		:param str prof_name:
+		   Profile name.
+		:param str prof_type:
+		   Profile type.
+		"""
+		
+		prof_dir = self.__profile_dir(prof_name)
+		prof_stub = self.__profile_stub(prof_name, prof_type, prof_dir)
+		if not os.path.exists(prof_dir):
+			os.makedirs(prof_dir)
+		prof_ini_path = self.__profile_ini_path(prof_dir)
+		
+		# Load previous properties
+		if os.path.exists(prof_ini_path):
+			prof_ini_file = open(prof_ini_path, "r")
+			prof_ini = configparser.ConfigParser()
+			prof_ini.read_file(prof_ini_file)
+			prof_ini_file.close()
+			prev_props = prof_ini["properties"]
+		else:
+			prev_props = {}
+			
+		# Prepare and store profile
+		prof_ini = configparser.ConfigParser()
+		prof_ini["profile"] = {}
+		prof_ini["profile"]["type"] = prof_type
+		prof_ini["properties"] = prof_stub.prepare(prev_props)
+		prof_ini_file = open(prof_ini_path, "w")
+		prof_ini.write(prof_ini_file)
+		prof_ini_file.close()
 		
 class ProfileStub:
 
@@ -89,13 +143,45 @@ class ProfileStub:
 	   Profile name.
 	:param Profile prof:
 	   Profile instance.
+	:param str prof_dir:
+	   Profile working directory.
 	"""
 	
-	def __init__(self, prof_name, prof):
+	def __init__(self, base_dir, prof_name, prof, prof_dir):
 	
+		self.__base_dir = base_dir
 		self.__prof_name = prof_name
 		self.__prof = prof
+		self.__prof_dir = prof_dir
 		self.__comp_stub_reg = ComponentStubRegistry(self.__prof)
+		
+	def context(self):
+	
+		"""
+		Create an exectution context.
+		
+		:rtype:
+		   execution.Context
+		:return:
+		   The created execution context.
+		"""
+		
+		return execution.Context(self.__base_dir, self.__prof_dir)
+		
+	def prepare(self, props):
+	
+		"""
+		Prepare stubbed profile and return its properties.
+		
+		:param dict props:
+		   Dictionary with previous properties.
+		:rtype:
+		   dict
+		:return:
+		   Properties dictionary.
+		"""
+		
+		return self.__prof.prepare(props)
 		
 	def component(self, comp_name):
 	
@@ -130,7 +216,7 @@ class ProfileStub:
 	def delete_plan(self, comp_name):
 	
 		"""
-		Prepare a delete plan all specified component.
+		Prepare a delete plan for specified component.
 		
 		:param str comp_name:
 		   Specified component name.
@@ -142,10 +228,10 @@ class ProfileStub:
 		
 		return None
 		
-	def update_plan(self, *comp_name):
+	def update_plan(self, comp_name):
 	
 		"""
-		Prepare an update plan for all specified component.
+		Prepare an update plan for specified component.
 		
 		:param str comp_name:
 		   Specified component name.
@@ -156,14 +242,6 @@ class ProfileStub:
 		"""
 		
 		return None
-		
-	def store(self):
-	
-		"""
-		Store this profile.
-		"""
-		
-		pass
 		
 class ComponentStubRegistry:
 
@@ -195,8 +273,7 @@ class ComponentStubRegistry:
 		try:
 			return self.__cache[comp_name]
 		except KeyError:
-			comp = self.__prof.component(comp_name)
-			comp_stub = ComponentStub(self, comp_name, comp, self.__prof)
+			comp_stub = ComponentStub(self, comp_name, self.__prof)
 			self.__cache[comp_name] = comp_stub
 			return comp_stub
 			
@@ -209,18 +286,42 @@ class ComponentStub:
 	   Component stub registry.
 	:param str comp_name:
 	   Component name.
-	:param Component comp:
-	   Component instance.
 	:param Profile prof:
 	   Owner profile.
 	"""
 	
-	def __init__(self, comp_stub_reg, comp_name, comp, prof):
+	def __init__(self, comp_stub_reg, comp_name, prof):
 	
 		self.__comp_stub_reg = comp_stub_reg
 		self.__comp_name = comp_name
-		self.__comp = comp
+		self.__comp_inst = None
+		self.__comp = self.__comp_empty
 		self.__prof = prof
+		
+	def __comp_empty(self):
+	
+		self.__comp_inst = self.__prof.component(self.__comp_name)
+		if self.__comp_inst is None:
+			self.__comp_inst = ComponentEmpty()
+		self.__comp = self.__comp_filled
+		return self.__comp_inst
+		
+	def __comp_filled(self):
+	
+		return self.__comp_inst
+		
+	def name(self):
+	
+		"""
+		Return component name.
+		
+		:rtype:
+		   str
+		:return:
+		   Component name.
+		"""
+		
+		return self.__comp_name
 		
 	def dependencies(self):
 	
@@ -228,6 +329,76 @@ class ComponentStub:
 		Yield :class:`ComponentStub` of dependencies of this component.
 		"""
 		
-		for dep_name in self.__prof.dependencies(self.__comp_name):
-			yield self.__comp_stub_reg.get(dep_name)
+		try:
+			for dep_name in self.__prof.dependencies(self.__comp_name):
+				yield self.__comp_stub_reg.get(dep_name)
+		except TypeError:
+			yield from ()
+			
+	def available(self, context):
+	
+		"""
+		Check stubbed component is available.
+		
+		:param execution.Context context:
+		   Execution context.
+		:rtype:
+		   bool
+		:return:
+		   Stubbed component availability.
+		"""
+		
+		return self.__comp().available(context)
+		
+	def insert(self, context):
+	
+		"""
+		Insert stubbed component.
+		
+		:param execution.Context context:
+		   Execution context.
+		"""
+		
+		self.__comp().insert(context)
+		
+	def delete(self, context):
+	
+		"""
+		Delete stubbed component.
+		
+		:param execution.Context context:
+		   Execution context.
+		"""
+		
+		self.__comp().delete(context)
+		
+class ComponentEmpty:
+
+	"""
+	Empty :class:`Component` implementation.
+	"""
+	
+	def available(self, context):
+	
+		"""
+		Return ``None``.
+		"""
+		
+		return None
+		
+	def insert(self, context):
+	
+		"""
+		Does nothing.
+		"""
+		
+		pass
+		
+	def delete(self, context):
+	
+		"""
+		Does nothing.
+		"""
+		
+		pass
 

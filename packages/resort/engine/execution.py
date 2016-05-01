@@ -19,65 +19,108 @@
 Engine execution classes.
 """
 
-class Plan:
-
-	"""
-	Execution plan.
-	"""
-	
-	def __init__(self):
-	
-		pass
-		
-	def execute(self):
-	
-		"""
-		Execute all operations of this plan.
-		
-		Yields events.
-		"""
-		
-		pass
-		
-	def merge(self, plan):
-	
-		"""
-		Merge this plan with the given plan.
-		
-		:param Plan plan:
-		   Plan to be merged.
-		"""
-		
-		pass
-		
 class Context:
 
 	"""
 	Execution context.
 	
-	:param exec_op:
-	   Execution operation of type :class:`Insert` or :class:`Delete`.
+	:param str prof_dir:
+	   Profile directory.
 	"""
 	
-	def __init__(self, exec_op):
+	def __init__(self, base_dir, prof_dir):
 	
-		self.__exec_op = exec_op
+		self.__base_dir = base_dir
+		self.__prof_dir = prof_dir
 		
-	def next(self, exec_op):
+	def base_path(self, path):
 	
 		"""
-		Initiates a new execution operation.
+		Relative path from base directory.
 		
-		:param exec_op:
-		   Next execution operation of type :class:`Insert` or :class:`Delete`.
+		:path str path:
+		   Relative path.
 		:rtype:
-		   Context
+		   str
 		:return:
-		   New execution context based on this context.
+		   Absolute path from base directory of the given path.
 		"""
 		
-		return Context(exec_op)
+		if os.path.isabs(path):
+			raise Exception("Path '{}' is absolute".format(path))
+		return os.path.join(self.__base_dir, path)
 		
+	def profile_path(self, path):
+	
+		"""
+		Relative path from profile working directory.
+		
+		:path str path:
+		   Relative path.
+		:rtype:
+		   str
+		:return:
+		   Absolute path from profile working directory of the given path.
+		"""
+		
+		if os.path.isabs(path):
+			raise Exception("Path '{}' is absolute".format(path))
+		return os.path.join(self.__prof_dir, path)
+
+class Plan:
+
+	"""
+	Execution plan.
+	
+	Could be iterated to retrieve :class:`Insert` or :class:`Detete` operations.
+	"""
+	
+	def __init__(self):
+	
+		self.__list = []
+		
+	def __iter__(self):
+	
+		return iter(self.__list)
+		
+	def insert(self, comp_stub):
+	
+		"""
+		Include an :class:`Insert` operation with the given component stub to
+		this plan.
+		
+		:param ComponentStub comp_stub:
+		   Component stub.
+		"""
+		
+		op = Insert(comp_stub)
+		op.include(self.__list)
+		
+	def delete(self, comp_stub):
+	
+		"""
+		Include a :class:`Delete` operation with the given component stub to
+		this plan.
+		
+		:param ComponentStub comp_stub:
+		   Component stub.
+		"""
+		
+		op = Insert(comp_stub)
+		op.include(self.__list)
+		
+	def merge(self, plan):
+	
+		"""
+		Include each operation of the given plan.
+		
+		:param Plan plan:
+		   Plan to be merged.
+		"""
+		
+		for op in plan:
+			op.include(self.__list)
+			
 class Insert:
 
 	"""
@@ -100,7 +143,18 @@ class Insert:
 		   Current execution context.
 		"""
 		
-		pass
+		self.__comp_stub.insert(context)
+		
+	def include(self, plan_list):
+	
+		"""
+		Include it into execution plan list.
+		
+		:param list plan_list:
+			List of plan operations.
+		"""
+		
+		plan_list.append(self)
 		
 class Delete:
 
@@ -124,5 +178,16 @@ class Delete:
 		   Current execution context.
 		"""
 		
-		pass
+		self.__comp_stub.delete(context)
+		
+	def include(self, plan_list):
+	
+		"""
+		Include it into execution plan list.
+		
+		:param list plan_list:
+			List of plan operations.
+		"""
+		
+		plan_list.insert(0, self)
 

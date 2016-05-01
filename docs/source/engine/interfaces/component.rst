@@ -7,13 +7,15 @@ Software component.
 
    Definition of a component.
    
-   .. function:: available()
+   .. function:: available(context)
    
       Check this component is available.
       
       Return True if it is available or False otherwise. But it can also return
       None if availability is not known or it is not relevant.
       
+      :param execution.Context context:
+         Current execution context.
       :rtype:
          bool
       :return:
