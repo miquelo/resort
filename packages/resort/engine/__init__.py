@@ -323,6 +323,20 @@ class ComponentStub:
 		
 		return self.__comp_name
 		
+	def type_name(self):
+	
+		"""
+		Fully qualified name of component class.
+		
+		:rtype:
+		   str
+		"""
+		
+		return "{}.{}".format(
+			self.__comp_inst.__module__,
+			self.__comp_inst.__class__.__name__
+		)
+		
 	def dependencies(self):
 	
 		"""

@@ -115,7 +115,7 @@ def argparse_command(value):
 #		
 # Component status printer
 #
-def print_component_status(out, context, comp_stub, last, indent):
+def print_component_status(out, context, comp_stub, last, indent, show_type):
 
 	for indent_last in indent:
 		if indent_last:
@@ -135,6 +135,10 @@ def print_component_status(out, context, comp_stub, last, indent):
 	elif avail is False:
 		out.write(colorama.Style.DIM)
 	out.write(comp_stub.name())
+	if show_type:
+		out.write(" (")
+		out.write(comp_stub.type_name())
+		out.write(")")
 	out.write(colorama.Style.RESET_ALL)
 	out.write("\n")
 	
@@ -144,7 +148,8 @@ def print_component_status(out, context, comp_stub, last, indent):
 	new_indent.append(last)
 	for i, dep_stub in enumerate(deps):
 		last = i == len(deps) - 1
-		print_component_status(out, context, dep_stub, last, new_indent)
+		print_component_status(out, context, dep_stub, last, new_indent,
+				show_type)
 		
 #
 # Command init
@@ -186,6 +191,14 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 		prog=prog_name
 	)
 	parser.add_argument(
+		"-t",
+		required=False,
+		action="store_true",
+		default=False,
+		dest="show_type",
+		help="Show component qualified class name"
+	)
+	parser.add_argument(
 		"components",
 		metavar="comps",
 		nargs=argparse.REMAINDER,
@@ -207,11 +220,12 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 			comp_stubs.append(comp_stub)
 			
 	# Print status
+	show_type = args.show_type
 	context = prof_stub.context()
 	out = io.StringIO()
 	for i, comp_stub in enumerate(comp_stubs):
 		last = i == len(comp_stubs) - 1
-		print_component_status(out, context, comp_stub, last, [])
+		print_component_status(out, context, comp_stub, last, [], show_type)
 	out.seek(0)
 	sys.stdout.write(out.read())
 	
