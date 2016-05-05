@@ -115,7 +115,8 @@ def argparse_command(value):
 #		
 # Component status printer
 #
-def print_component_status(out, context, comp_stub, last, indent, show_type):
+def print_component_status(out, context, comp_stub, last, depth, indent,
+		show_type, tree_depth):
 
 	for indent_last in indent:
 		if indent_last:
@@ -143,13 +144,15 @@ def print_component_status(out, context, comp_stub, last, indent, show_type):
 	out.write("\n")
 	
 	deps = list(comp_stub.dependencies())
+	new_depth = depth + 1
 	new_indent = []
 	new_indent.extend(indent)
 	new_indent.append(last)
 	for i, dep_stub in enumerate(deps):
 		last = i == len(deps) - 1
-		print_component_status(out, context, dep_stub, last, new_indent,
-				show_type)
+		if tree_depth is None or depth <= tree_depth:
+			print_component_status(out, context, dep_stub, last, new_depth,
+					new_indent, show_type, tree_depth)
 		
 #
 # Command init
@@ -169,7 +172,7 @@ def command_init(prog_name, prof_mgr, prof_name, prog_args):
 		metavar="type",
 		type=str,
 		nargs=1,
-		help="Profile type"
+		help="profile type"
 	)
 	args = parser.parse_args(prog_args)
 	
@@ -192,17 +195,28 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 	)
 	parser.add_argument(
 		"-t",
+		"--type",
 		required=False,
 		action="store_true",
 		default=False,
 		dest="show_type",
-		help="Show component qualified class name"
+		help="show component qualified class name"
+	)
+	parser.add_argument(
+		"-d",
+		"--depth",
+		metavar="tree_depth",
+		required=False,
+		type=int,
+		default=None,
+		dest="tree_depth",
+		help="integer value of dependency tree depth"
 	)
 	parser.add_argument(
 		"components",
 		metavar="comps",
 		nargs=argparse.REMAINDER,
-		help="System components."
+		help="system components"
 	)
 	args = parser.parse_args(prog_args)
 	
@@ -221,11 +235,13 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 			
 	# Print status
 	show_type = args.show_type
+	tree_depth = args.tree_depth
 	context = prof_stub.context()
 	out = io.StringIO()
 	for i, comp_stub in enumerate(comp_stubs):
 		last = i == len(comp_stubs) - 1
-		print_component_status(out, context, comp_stub, last, [], show_type)
+		print_component_status(out, context, comp_stub, last, 1, [], show_type,
+				tree_depth)
 	out.seek(0)
 	sys.stdout.write(out.read())
 	
@@ -246,7 +262,7 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 		"components",
 		metavar="comps",
 		nargs=argparse.REMAINDER,
-		help="System components."
+		help="system components"
 	)
 	args = parser.parse_args(prog_args)
 
