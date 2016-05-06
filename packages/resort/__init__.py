@@ -113,9 +113,9 @@ def argparse_command(value):
 		raise argparse.ArgumentTypeError(msg.read())
 		
 #
-# Argument parser for tree depth
+# Argument parser for status depth
 #
-def argparse_tree_depth(value):
+def argparse_status_depth(value):
 
 	try:
 		if int(value) > 0:
@@ -221,7 +221,7 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 		"--depth",
 		metavar="tree_depth",
 		required=False,
-		type=argparse_tree_depth,
+		type=argparse_status_depth,
 		default=None,
 		dest="tree_depth",
 		help="integer value of dependency tree depth"
