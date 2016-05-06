@@ -16,7 +16,7 @@
 #
 
 """
-Engine execution classes.
+Component execution classes.
 """
 
 class Context:

@@ -136,9 +136,11 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 	elif avail is False:
 		out.write(colorama.Style.DIM)
 	out.write(comp_stub.name())
-	if show_type:
+	
+	type_name = comp_stub.type_name()
+	if show_type and type_name is not None:
 		out.write(" (")
-		out.write(comp_stub.type_name())
+		out.write(type_name)
 		out.write(")")
 	out.write(colorama.Style.RESET_ALL)
 	out.write("\n")
