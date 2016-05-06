@@ -119,30 +119,30 @@ class Plan:
 	
 		return iter(self.__list)
 		
-	def insert(self, comp_stub):
+	def insert(self, comp):
 	
 		"""
-		Include an :class:`Insert` operation with the given component stub to
-		this plan.
+		Include an :class:`Insert` operation with the given component to this
+		plan.
 		
-		:param ComponentStub comp_stub:
-		   Component stub.
+		:param Component comp:
+		   Component.
 		"""
 		
 		op = Insert(comp_stub)
 		op.include(self.__list)
 		
-	def delete(self, comp_stub):
+	def delete(self, comp):
 	
 		"""
-		Include a :class:`Delete` operation with the given component stub to
-		this plan.
+		Include a :class:`Delete` operation with the given component to this
+		plan.
 		
-		:param ComponentStub comp_stub:
-		   Component stub.
+		:param Component comp:
+		   Component.
 		"""
 		
-		op = Insert(comp_stub)
+		op = Insert(comp)
 		op.include(self.__list)
 		
 	def merge(self, plan):
@@ -162,13 +162,13 @@ class Insert:
 	"""
 	Insert operation.
 	
-	:param ComponentStub comp_stub:
-	   Stub of component to be inserted.
+	:param Component comp:
+	   Component to be inserted.
 	"""
 	
-	def __init__(self, comp_stub):
+	def __init__(self, comp):
 	
-		self.__comp_stub = comp_stub
+		self.__comp = comp
 		
 	def execute(self, context):
 	
@@ -179,31 +179,20 @@ class Insert:
 		   Current execution context.
 		"""
 		
-		self.__comp_stub.insert(context)
-		
-	def include(self, plan_list):
-	
-		"""
-		Include it into execution plan list.
-		
-		:param list plan_list:
-			List of plan operations.
-		"""
-		
-		plan_list.append(self)
+		self.__comp.insert(context)
 		
 class Delete:
 
 	"""
 	Delete operation.
 	
-	:param ComponentStub comp_stub:
-	   Stub of component to be deleted.
+	:param Component comp:
+	   Component to be deleted.
 	"""
 	
-	def __init__(self, comp_stub):
+	def __init__(self, comp):
 	
-		self.__comp_stub = comp_stub
+		self.__comp = comp
 		
 	def execute(self, context):
 	
@@ -214,16 +203,5 @@ class Delete:
 		   Current execution context.
 		"""
 		
-		self.__comp_stub.delete(context)
-		
-	def include(self, plan_list):
-	
-		"""
-		Include it into execution plan list.
-		
-		:param list plan_list:
-			List of plan operations.
-		"""
-		
-		plan_list.insert(0, self)
+		self.__comp.delete(context)
 
