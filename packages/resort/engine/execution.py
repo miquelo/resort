@@ -169,6 +169,18 @@ class Insert:
 	def __init__(self, comp):
 	
 		self.__comp = comp
+		if self.__comp is None:
+			self.__execute = self.__execute_empty
+		else:
+			self.__execute = self.__execute_default
+			
+	def __execute_empty(self, context):
+	
+		pass
+		
+	def __execute_default(self, context):
+	
+		self.__comp.insert(context)
 		
 	def execute(self, context):
 	
@@ -179,7 +191,7 @@ class Insert:
 		   Current execution context.
 		"""
 		
-		self.__comp.insert(context)
+		self.__execute(context)
 		
 class Delete:
 
@@ -193,6 +205,18 @@ class Delete:
 	def __init__(self, comp):
 	
 		self.__comp = comp
+		if self.__comp is None:
+			self.__execute = self.__execute_empty
+		else:
+			self.__execute = self.__execute_default
+			
+	def __execute_empty(self, context):
+	
+		pass
+		
+	def __execute_default(self, context):
+	
+		self.__comp.delete(context)
 		
 	def execute(self, context):
 	
@@ -203,5 +227,5 @@ class Delete:
 		   Current execution context.
 		"""
 		
-		self.__comp.delete(context)
+		self.__execute(context)
 
