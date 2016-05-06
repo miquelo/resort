@@ -111,7 +111,19 @@ def argparse_command(value):
 			msg.write("\n")
 		msg.seek(0)
 		raise argparse.ArgumentTypeError(msg.read())
+		
+#
+# Argument parser for tree depth
+#
+def argparse_tree_depth(value):
 
+	try:
+		if int(value) > 0:
+			return int(value)
+	except:
+		pass
+	raise argparse.ArgumentTypeError("Bad tree depth {}".format(value))
+		
 #		
 # Component status printer
 #
@@ -152,7 +164,7 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 	new_indent.append(last)
 	for i, dep_stub in enumerate(deps):
 		last = i == len(deps) - 1
-		if tree_depth is None or depth <= tree_depth:
+		if tree_depth is None or depth < tree_depth:
 			print_component_status(out, context, dep_stub, last, new_depth,
 					new_indent, show_type, tree_depth)
 		
@@ -209,7 +221,7 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 		"--depth",
 		metavar="tree_depth",
 		required=False,
-		type=int,
+		type=argparse_tree_depth,
 		default=None,
 		dest="tree_depth",
 		help="integer value of dependency tree depth"
