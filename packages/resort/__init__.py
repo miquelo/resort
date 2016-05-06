@@ -130,7 +130,7 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 		out.write("\u251c")
 	out.write("\u2500 ")
 	
-	avail = comp_stub.available(context)
+	avail = comp_stub.available().get(context)
 	if avail is True:
 		out.write(colorama.Style.BRIGHT)
 	elif avail is False:

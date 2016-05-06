@@ -66,7 +66,43 @@ class Context:
 		if os.path.isabs(path):
 			raise Exception("Path '{}' is absolute".format(path))
 		return os.path.join(self.__prof_dir, path)
+		
+class Availability:
 
+	"""
+	Component avaiability.
+	
+	:param Component comp:
+	   Target component.
+	"""
+	
+	def __init__(self, comp):
+	
+		self.__comp = comp
+		if self.__comp is None:
+			self.__get = self.__get_empty
+		else:
+			self.__get = self.__get_default
+			
+	def __get_empty(self, context):
+	
+		return None
+		
+	def __get_default(self, context):
+	
+		return self.__comp.available(context)
+		
+	def get(self, context):
+	
+		"""
+		Availability value.
+		
+		:param Context context:
+		   Current execution context.
+		"""
+		
+		return self.__get(context)
+		
 class Plan:
 
 	"""

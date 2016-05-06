@@ -137,7 +137,7 @@ class ProfileManager:
 class ProfileStub:
 
 	"""
-	Stub of a :class:`Profile`.
+	Stub of a :class:`Profile` with a :class:`ComponentStubRegistry`.
 	
 	:param str prof_name:
 	   Profile name.
@@ -198,47 +198,128 @@ class ProfileStub:
 		
 		return self.__comp_stub_reg.get(comp_name)
 		
-	def insert_plan(self, comp_name):
+class ComponentStub:
+
+	"""
+	Stub of a :class:`Component`.
+	
+	:param ComponentStubRegistry comp_stub_reg:
+	   Component stub registry.
+	:param str comp_name:
+	   Component name.
+	:param Profile prof:
+	   Owner profile.
+	"""
+	
+	def __init__(self, comp_stub_reg, comp_name, prof):
+	
+		self.__comp_stub_reg = comp_stub_reg
+		self.__comp_name = comp_name
+		self.__comp_inst = None
+		self.__comp = self.__comp_init
+		self.__prof = prof
+		self.__type_name = self.__type_name_init
+		
+	def __comp_init(self):
+	
+		self.__comp_inst = self.__prof.component(self.__comp_name)
+		return self.__comp_inst
+		
+	def __comp_default(self):
+	
+		return self.__comp_inst
+		
+	def __type_name_init(self):
+	
+		comp = self.__comp()
+		if comp is None:
+			self.__type_name = self.__type_name_empty
+		else:
+			self.__type_name = self.__type_name_default
+		return self.__type_name()
+		
+	def __type_name_empty(self):
+	
+		return None
+		
+	def __type_name_default(self):
+	
+		return "{}.{}".format(
+			self.__comp_inst.__module__,
+			self.__comp_inst.__class__.__name__
+		)
+		
+	def name(self):
 	
 		"""
-		Prepare an insert plan for specified component.
+		Return component name.
 		
-		:param str comp_name:
-		   Specified component name.
+		:rtype:
+		   str
+		:return:
+		   Component name.
+		"""
+		
+		return self.__comp_name
+		
+	def type_name(self):
+	
+		"""
+		Fully qualified name of component class.
+		
+		:rtype:
+		   str
+		"""
+		
+		return self.__type_name()
+		
+	def dependencies(self):
+	
+		"""
+		Yield :class:`ComponentStub` of dependencies of this component.
+		"""
+		
+		try:
+			for dep_name in self.__prof.dependencies(self.name()):
+				yield self.__comp_stub_reg.get(dep_name)
+		except TypeError:
+			yield from ()
+			
+	def available(self):
+	
+		"""
+		Return component availability.
+		
+		:rtype:
+		   execution.Availability
+		:return:
+		   Component availability.
+		"""
+		
+		return execution.Availability(self.__comp())
+		
+	def insert(self):
+	
+		"""
+		Create an insert execution plan.
+		
 		:rtype:
 		   execution.Plan
 		:return:
-		   Prepared insert plan.
+		   Insert execution plan.
 		"""
 		
 		return None
 		
-	def delete_plan(self, comp_name):
+	def delete(self):
 	
 		"""
-		Prepare a delete plan for specified component.
+		Create a delete execution plan.
 		
-		:param str comp_name:
-		   Specified component name.
 		:rtype:
 		   execution.Plan
 		:return:
-		   Prepared delete plan.
-		"""
-		
-		return None
-		
-	def update_plan(self, comp_name):
-	
-		"""
-		Prepare an update plan for specified component.
-		
-		:param str comp_name:
-		   Specified component name.
-		:rtype:
-		   execution.Plan
-		:return:
-		   Prepared update plan.
+		   Delete execution plan.
 		"""
 		
 		return None
@@ -276,143 +357,4 @@ class ComponentStubRegistry:
 			comp_stub = ComponentStub(self, comp_name, self.__prof)
 			self.__cache[comp_name] = comp_stub
 			return comp_stub
-			
-class ComponentStub:
-
-	"""
-	Stub of a :class:`Component`.
-	
-	:param ComponentStubRegistry comp_stub_reg:
-	   Component stub registry.
-	:param str comp_name:
-	   Component name.
-	:param Profile prof:
-	   Owner profile.
-	"""
-	
-	def __init__(self, comp_stub_reg, comp_name, prof):
-	
-		self.__comp_stub_reg = comp_stub_reg
-		self.__comp_name = comp_name
-		self.__comp_inst = None
-		self.__comp = self.__comp_empty
-		self.__prof = prof
-		
-	def __comp_empty(self):
-	
-		self.__comp_inst = self.__prof.component(self.__comp_name)
-		if self.__comp_inst is None:
-			self.__comp_inst = ComponentEmpty()
-		self.__comp = self.__comp_filled
-		return self.__comp_inst
-		
-	def __comp_filled(self):
-	
-		return self.__comp_inst
-		
-	def name(self):
-	
-		"""
-		Return component name.
-		
-		:rtype:
-		   str
-		:return:
-		   Component name.
-		"""
-		
-		return self.__comp_name
-		
-	def type_name(self):
-	
-		"""
-		Fully qualified name of component class.
-		
-		:rtype:
-		   str
-		"""
-		
-		return "{}.{}".format(
-			self.__comp_inst.__module__,
-			self.__comp_inst.__class__.__name__
-		)
-		
-	def dependencies(self):
-	
-		"""
-		Yield :class:`ComponentStub` of dependencies of this component.
-		"""
-		
-		try:
-			for dep_name in self.__prof.dependencies(self.__comp_name):
-				yield self.__comp_stub_reg.get(dep_name)
-		except TypeError:
-			yield from ()
-			
-	def available(self, context):
-	
-		"""
-		Check stubbed component is available.
-		
-		:param execution.Context context:
-		   Execution context.
-		:rtype:
-		   bool
-		:return:
-		   Stubbed component availability.
-		"""
-		
-		return self.__comp().available(context)
-		
-	def insert(self, context):
-	
-		"""
-		Insert stubbed component.
-		
-		:param execution.Context context:
-		   Execution context.
-		"""
-		
-		self.__comp().insert(context)
-		
-	def delete(self, context):
-	
-		"""
-		Delete stubbed component.
-		
-		:param execution.Context context:
-		   Execution context.
-		"""
-		
-		self.__comp().delete(context)
-		
-class ComponentEmpty:
-
-	"""
-	Empty :class:`Component` implementation.
-	"""
-	
-	def available(self, context):
-	
-		"""
-		Return ``None``.
-		"""
-		
-		return None
-		
-	def insert(self, context):
-	
-		"""
-		Does nothing.
-		"""
-		
-		pass
-		
-	def delete(self, context):
-	
-		"""
-		Does nothing.
-		"""
-		
-		pass
 
