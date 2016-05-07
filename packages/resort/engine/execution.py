@@ -108,7 +108,7 @@ class Plan:
 	"""
 	Execution plan.
 	
-	Could be iterated to retrieve :class:`Insert` or :class:`Detete` operations.
+	Could be iterated to retrieve :class:`Operation` instances.
 	"""
 	
 	def __init__(self):
@@ -157,7 +157,40 @@ class Plan:
 		for op in plan:
 			op.include(self.__list)
 			
-class Insert:
+class Operation:
+
+	"""
+	Component operation.
+	"""
+	
+	def __init__(self, comp):
+	
+		self.__comp = comp
+		if self.__comp is None:
+			self.__execute = self.__execute_empty
+		else:
+			self.__execute = self.__execute_default
+			
+	def __execute_empty(self, context):
+	
+		pass
+		
+	def __execute_default(self, context):
+	
+		self.execute_impl(context)
+		
+	def execute(self, context):
+	
+		"""
+		Execute operation.
+		
+		:param Context context:
+		   Current execution context.
+		"""
+		
+		self.__execute(context)
+		
+class Insert(Operation):
 
 	"""
 	Insert operation.
@@ -168,32 +201,22 @@ class Insert:
 	
 	def __init__(self, comp):
 	
-		self.__comp = comp
-		if self.__comp is None:
-			self.__execute = self.__execute_empty
-		else:
-			self.__execute = self.__execute_default
+		super().__init(comp)
 			
-	def __execute_empty(self, context):
-	
-		pass
-		
-	def __execute_default(self, context):
-	
-		self.__comp.insert(context)
-		
-	def execute(self, context):
+	def execute_impl(self, comp, context):
 	
 		"""
 		Execute insert operation.
 		
+		:param Component comp:
+		   Target component.
 		:param Context context:
-		   Current execution context.
+		   Current context.
 		"""
 		
-		self.__execute(context)
+		comp.insert(context)
 		
-class Delete:
+class Delete(Operation):
 
 	"""
 	Delete operation.
@@ -204,28 +227,18 @@ class Delete:
 	
 	def __init__(self, comp):
 	
-		self.__comp = comp
-		if self.__comp is None:
-			self.__execute = self.__execute_empty
-		else:
-			self.__execute = self.__execute_default
+		super().__init(comp)
 			
-	def __execute_empty(self, context):
-	
-		pass
-		
-	def __execute_default(self, context):
-	
-		self.__comp.delete(context)
-		
-	def execute(self, context):
+	def execute_impl(self, comp, context):
 	
 		"""
 		Execute delete operation.
 		
+		:param Component comp:
+		   Target component.
 		:param Context context:
-		   Current execution context.
+		   Current context.
 		"""
 		
-		self.__execute(context)
+		comp.delete(context)
 
