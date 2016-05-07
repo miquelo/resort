@@ -309,7 +309,8 @@ class ComponentStub:
 		   Insert execution plan.
 		"""
 		
-		return None
+		plan = execution.Plan()
+		return plan
 		
 	def delete(self):
 	
@@ -322,7 +323,8 @@ class ComponentStub:
 		   Delete execution plan.
 		"""
 		
-		return None
+		plan = execution.Plan()
+		return plan
 		
 class ComponentStubRegistry:
 

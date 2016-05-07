@@ -161,6 +161,9 @@ class Operation:
 
 	"""
 	Component operation.
+	
+	:param Component comp:
+	   Target component.
 	"""
 	
 	def __init__(self, comp):
@@ -177,7 +180,7 @@ class Operation:
 		
 	def __execute_default(self, context):
 	
-		self.execute_impl(context)
+		self.execute_it(context)
 		
 	def execute(self, context):
 	
@@ -202,8 +205,19 @@ class Insert(Operation):
 	def __init__(self, comp):
 	
 		super().__init(comp)
-			
-	def execute_impl(self, comp, context):
+		
+	def include(self, op_list):
+	
+		"""
+		Include this operation into given operation list.
+		
+		:param list op_list:
+		   Operation list.
+		"""
+		
+		pass
+		
+	def execute_it(self, comp, context):
 	
 		"""
 		Execute insert operation.
@@ -228,8 +242,19 @@ class Delete(Operation):
 	def __init__(self, comp):
 	
 		super().__init(comp)
-			
-	def execute_impl(self, comp, context):
+		
+	def include(self, op_list):
+	
+		"""
+		Include this operation into given operation list.
+		
+		:param list op_list:
+		   Operation list.
+		"""
+		
+		pass
+		
+	def execute_it(self, comp, context):
 	
 		"""
 		Execute delete operation.

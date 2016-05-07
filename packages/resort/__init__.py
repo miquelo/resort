@@ -279,4 +279,22 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 		help="system components"
 	)
 	args = parser.parse_args(prog_args)
+	
+	# Profile load
+	prof_stub = prof_mgr.load(prof_name)
+	
+	# Collect component stubs
+	comp_stubs = []
+	if len(args.components) == 0:
+		comp_stub = prof_stub.component(None)
+		comp_stubs.extend(comp_stub.dependencies())
+	else:
+		for comp_name in args.components:
+			comp_stub = prof_stub.component(comp_name)
+			comp_stubs.append(comp_stub)
+			
+	# Create insert plan
+	plan = engine.execution.Plan()
+	for comp_stub in comp_stubs:
+		plan.merge(comp_stub.insert())
 
