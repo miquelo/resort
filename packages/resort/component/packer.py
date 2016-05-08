@@ -33,6 +33,15 @@ class Image:
 		self.__base_dir = base_dir
 		self.__template_path = template_path
 		
+	def __repr__(self):
+	
+		return "{}.{}({}, {})".format(
+			self.__module__,
+			type(self).__name__,
+			repr(self.__base_dir),
+			repr(self.__template_path)
+		)
+		
 	def available(self, context):
 	
 		"""
@@ -40,4 +49,12 @@ class Image:
 		"""
 		
 		return None
+		
+	def insert(self, context):
+	
+		pass
+		
+	def delete(self, context):
+	
+		pass
 

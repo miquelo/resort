@@ -15,6 +15,8 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
+
 """
 Component execution classes.
 """
@@ -67,120 +69,62 @@ class Context:
 			raise Exception("Path '{}' is absolute".format(path))
 		return os.path.join(self.__prof_dir, path)
 		
-class Availability:
-
-	"""
-	Component avaiability.
-	
-	:param Component comp:
-	   Target component.
-	"""
-	
-	def __init__(self, comp):
-	
-		self.__comp = comp
-		if self.__comp is None:
-			self.__get = self.__get_empty
-		else:
-			self.__get = self.__get_default
-			
-	def __get_empty(self, context):
-	
-		return None
-		
-	def __get_default(self, context):
-	
-		return self.__comp.available(context)
-		
-	def get(self, context):
-	
-		"""
-		Availability value.
-		
-		:param Context context:
-		   Current execution context.
-		"""
-		
-		return self.__get(context)
-		
-class Plan:
-
-	"""
-	Execution plan.
-	
-	Could be iterated to retrieve :class:`Operation` instances.
-	"""
-	
-	def __init__(self):
-	
-		self.__list = []
-		
-	def __iter__(self):
-	
-		return iter(self.__list)
-		
-	def insert(self, comp):
-	
-		"""
-		Include an :class:`Insert` operation with the given component to this
-		plan.
-		
-		:param Component comp:
-		   Component.
-		"""
-		
-		op = Insert(comp_stub)
-		op.include(self.__list)
-		
-	def delete(self, comp):
-	
-		"""
-		Include a :class:`Delete` operation with the given component to this
-		plan.
-		
-		:param Component comp:
-		   Component.
-		"""
-		
-		op = Insert(comp)
-		op.include(self.__list)
-		
-	def merge(self, plan):
-	
-		"""
-		Include each operation of the given plan.
-		
-		:param Plan plan:
-		   Plan to be merged.
-		"""
-		
-		for op in plan:
-			op.include(self.__list)
-			
 class Operation:
 
 	"""
 	Component operation.
 	
+	:param str name:
+	   Target component name.
 	:param Component comp:
-	   Target component.
+	   Target component. May be ``None``.
 	"""
 	
-	def __init__(self, comp):
+	def __init__(self, name, comp):
 	
+		self.__name = name
 		self.__comp = comp
 		if self.__comp is None:
 			self.__execute = self.__execute_empty
 		else:
 			self.__execute = self.__execute_default
 			
+	def __eq__(self, other):
+	
+		return type(self) == type(other) and self.__name == other.__name
+		
+	def __ne__(self, other):
+	
+		return type(self) != type(other) or self.__name != other.__name
+		
+		
+	def __repr__(self):
+	
+		return "{}.{}({}, {})".format(
+			self.__module__,
+			type(self).__name__,
+			repr(self.__name),
+			repr(self.__comp)
+		)
+		
 	def __execute_empty(self, context):
 	
 		pass
 		
 	def __execute_default(self, context):
 	
-		self.execute_it(context)
+		self.execute_impl(self.__comp, context)
+		
+	def name(self):
+	
+		"""
+		Component name.
+		
+		:rtype:
+		   str
+		"""
+		
+		return self.__name
 		
 	def execute(self, context):
 	
@@ -198,26 +142,17 @@ class Insert(Operation):
 	"""
 	Insert operation.
 	
+	:param str name:
+	   Component name.
 	:param Component comp:
 	   Component to be inserted.
 	"""
 	
-	def __init__(self, comp):
+	def __init__(self, name, comp):
 	
-		super().__init(comp)
+		super().__init__(name, comp)
 		
-	def include(self, op_list):
-	
-		"""
-		Include this operation into given operation list.
-		
-		:param list op_list:
-		   Operation list.
-		"""
-		
-		pass
-		
-	def execute_it(self, comp, context):
+	def execute_impl(self, comp, context):
 	
 		"""
 		Execute insert operation.
@@ -235,26 +170,17 @@ class Delete(Operation):
 	"""
 	Delete operation.
 	
+	:param str name:
+	   Component name.
 	:param Component comp:
 	   Component to be deleted.
 	"""
 	
-	def __init__(self, comp):
+	def __init__(self, name, comp):
 	
-		super().__init(comp)
+		super().__init__(name, comp)
 		
-	def include(self, op_list):
-	
-		"""
-		Include this operation into given operation list.
-		
-		:param list op_list:
-		   Operation list.
-		"""
-		
-		pass
-		
-	def execute_it(self, comp, context):
+	def execute_impl(self, comp, context):
 	
 		"""
 		Execute delete operation.

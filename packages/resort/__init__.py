@@ -142,7 +142,7 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 		out.write("\u251c")
 	out.write("\u2500 ")
 	
-	avail = comp_stub.available().get(context)
+	avail = comp_stub.available(context)
 	if avail is True:
 		out.write(colorama.Style.BRIGHT)
 	elif avail is False:
@@ -167,7 +167,7 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 		if tree_depth is None or depth < tree_depth:
 			print_component_status(out, context, dep_stub, last, new_depth,
 					new_indent, show_type, tree_depth)
-		
+					
 #
 # Command init
 #
@@ -193,6 +193,33 @@ def command_init(prog_name, prof_mgr, prof_name, prog_args):
 	# Profile store
 	prof_type = args.type[0]
 	prof_mgr.store(prof_name, prof_type)
+	
+#
+# Command list
+#
+def command_list(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Print the list of components.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	args = parser.parse_args(prog_args)
+	
+	# Profile load
+	prof_stub = prof_mgr.load(prof_name)
+	
+	# Print component list
+	out = io.StringIO()
+	for comp_stub in prof_stub.component_list():
+		if comp_stub.name() is not None:
+			out.write(comp_stub.name())
+			out.write("\n")
+	out.seek(0)
+	sys.stdout.write(out.read())
 	
 #
 # Command status
@@ -287,6 +314,7 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 	comp_stubs = []
 	if len(args.components) == 0:
 		comp_stub = prof_stub.component(None)
+		comp_stubs.append(comp_stub)
 		comp_stubs.extend(comp_stub.dependencies())
 	else:
 		for comp_name in args.components:
@@ -294,7 +322,97 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 			comp_stubs.append(comp_stub)
 			
 	# Create insert plan
-	plan = engine.execution.Plan()
+	context = prof_stub.context()
+	plan = []
 	for comp_stub in comp_stubs:
-		plan.merge(comp_stub.insert())
+		comp_stub.insert(context, plan)
+		
+	# Print insert plan
+	for op in plan:
+		op.execute(context)
+		
+#
+# Command delete
+#
+def command_delete(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Delete components.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"components",
+		metavar="comps",
+		nargs=argparse.REMAINDER,
+		help="system components"
+	)
+	args = parser.parse_args(prog_args)
+	
+	# Profile load
+	prof_stub = prof_mgr.load(prof_name)
+	
+	# Collect component stubs
+	comp_stubs = []
+	for comp_name in args.components:
+		comp_stub = prof_stub.component(comp_name)
+		comp_stubs.append(comp_stub)
+			
+	# Create delete plan
+	context = prof_stub.context()
+	plan = []
+	for comp_stub in comp_stubs:
+		comp_stub.delete(context, plan)
+		
+	# Print delete plan
+	for op in plan:
+		op.execute(context)
+		
+#
+# Command update
+#
+def command_update(prog_name, prof_mgr, prof_name, prog_args):
+
+	"""
+	Update components.
+	"""
+	
+	# Retrieve arguments
+	parser = argparse.ArgumentParser(
+		prog=prog_name
+	)
+	parser.add_argument(
+		"components",
+		metavar="comps",
+		nargs=argparse.REMAINDER,
+		help="system components"
+	)
+	args = parser.parse_args(prog_args)
+	
+	# Profile load
+	prof_stub = prof_mgr.load(prof_name)
+	
+	# Collect component stubs
+	comp_stubs = []
+	if len(args.components) == 0:
+		comp_stub = prof_stub.component(None)
+		comp_stubs.append(comp_stub)
+		comp_stubs.extend(comp_stub.dependencies())
+	else:
+		for comp_name in args.components:
+			comp_stub = prof_stub.component(comp_name)
+			comp_stubs.append(comp_stub)
+			
+	# Create update plan
+	context = prof_stub.context()
+	plan = []
+	for comp_stub in comp_stubs:
+		comp_stub.update(context, plan)
+		
+	# Execute update plan
+	for op in plan:
+		op.execute(context)
 

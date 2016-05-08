@@ -15,6 +15,7 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import io
 import os
 
 class Set:
@@ -44,6 +45,16 @@ class Set:
 		
 		self.__props = props
 		
+	def __repr__(self):
+	
+		return "{}.{}({}, {}, {})".format(
+			self.__module__,
+			type(self).__name__,
+			repr(self.__source_path),
+			repr(self.__target_path),
+			repr(self.__props)
+		)
+		
 	def __resolve(self, in_path, out_path):
 	
 		try:
@@ -51,7 +62,7 @@ class Set:
 				if os.path.isfile(in_path):
 					in_file = open(in_path, "r")
 					out_file = open(out_path, "w")
-					resolver = Resolver(out_file, self.__r_vars)
+					resolver = Resolver(out_file, self.__props)
 					c = in_file.read(1)
 					while len(c) > 0:
 						resolver.update(c)
@@ -73,7 +84,7 @@ class Set:
 	def available(self, context):
 	
 		"""
-		Always return ``None``.
+		Return ``None``.
 		"""
 		
 		return None
@@ -86,7 +97,7 @@ class Set:
 		
 		in_path = context.base_path(self.__source_path)
 		out_path = context.profile_path(self.__target_path)
-		self.__resolve(context.base_path(in_path, out_path))
+		self.__resolve(in_path, out_path)
 		
 	def delete(self, context):
 	

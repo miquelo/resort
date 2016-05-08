@@ -155,6 +155,13 @@ class ProfileStub:
 		self.__prof_dir = prof_dir
 		self.__comp_stub_reg = ComponentStubRegistry(self.__prof)
 		
+	def __component_list(self, comp_stub, target_list):
+	
+		if comp_stub not in target_list:
+			target_list.append(comp_stub)
+		for dep_stub in comp_stub.dependencies():
+			self.__component_list(dep_stub, target_list)
+			
 	def context(self):
 	
 		"""
@@ -182,6 +189,19 @@ class ProfileStub:
 		"""
 		
 		return self.__prof.prepare(props)
+		
+	def component_list(self):
+	
+		"""
+		List of :class:`ComponentStub` instances for this profile.
+		
+		:rtype:
+		   list
+		"""
+		
+		comp_list = []
+		self.__component_list(self.component(None), comp_list)
+		return sorted(comp_list)
 		
 	def component(self, comp_name):
 	
@@ -219,6 +239,21 @@ class ComponentStub:
 		self.__comp = self.__comp_init
 		self.__prof = prof
 		self.__type_name = self.__type_name_init
+		self.__available = self.__available_init
+		
+	def __eq__(self, other):
+	
+		return self.name() == other.name()
+		
+	def __ne__(self, other):
+	
+		return self.name() != other.name()
+		
+	def __lt__(self, other):
+	
+		if self.name() is None or other.name() is None:
+			return None
+		return self.name() < other.name()
 		
 	def __comp_init(self):
 	
@@ -249,15 +284,38 @@ class ComponentStub:
 			self.__comp_inst.__class__.__name__
 		)
 		
+	def __available_init(self, context):
+	
+		comp = self.__comp()
+		if comp is None:
+			self.__available = self.__available_empty
+		else:
+			self.__available = self.__available_default
+		return self.__available(context)
+		
+	def __available_empty(self, context):
+	
+		return None
+		
+	def __available_default(self, context):
+	
+		return self.__comp_inst.available(context)
+		
+	def __dependents(self, comp_stub, dep_list):
+	
+		for dep_stub in comp_stub.dependencies():
+			if dep_stub == self:
+				dep_list.append(comp_stub)
+			else:
+				self.__dependents(dep_stub, dep_list)
+				
 	def name(self):
 	
 		"""
-		Return component name.
+		Component name.
 		
 		:rtype:
 		   str
-		:return:
-		   Component name.
 		"""
 		
 		return self.__comp_name
@@ -265,7 +323,7 @@ class ComponentStub:
 	def type_name(self):
 	
 		"""
-		Fully qualified name of component class.
+		Fully qualified name of component class or ``None``.
 		
 		:rtype:
 		   str
@@ -285,47 +343,75 @@ class ComponentStub:
 		except TypeError:
 			yield from ()
 			
-	def available(self):
+	def available(self, context):
 	
 		"""
 		Return component availability.
 		
 		:rtype:
-		   execution.Availability
+		   bool
 		:return:
 		   Component availability.
 		"""
 		
-		return execution.Availability(self.__comp())
+		return self.__available(context)
 		
-	def insert(self):
+	def insert(self, context, plan):
 	
 		"""
-		Create an insert execution plan.
+		Include an insert operation to the given plan.
 		
-		:rtype:
-		   execution.Plan
-		:return:
-		   Insert execution plan.
+		:param execution.Context context:
+		   Current execution context.
+		:param list plan:
+		   List of :class:`execution.Operation` instances.
 		"""
 		
-		plan = execution.Plan()
-		return plan
-		
-	def delete(self):
+		op = execution.Insert(self.__comp_name, self.__comp())
+		if op not in plan and self.available(context) != True:
+			for dep_stub in self.dependencies():
+				dep_stub.insert(context, plan)
+			plan.append(op)
+			
+	def delete(self, context, plan):
 	
 		"""
-		Create a delete execution plan.
+		Include a delete operation to the given plan.
 		
-		:rtype:
-		   execution.Plan
-		:return:
-		   Delete execution plan.
+		:param execution.Context context:
+		   Current execution context.
+		:param list plan:
+		   List of :class:`execution.Operation` instances.
 		"""
 		
-		plan = execution.Plan()
-		return plan
+		op = execution.Delete(self.__comp_name, self.__comp())
+		dep_list = []
+		self.__dependents(self.__comp_stub_reg.get(None), dep_list)
+		if op not in plan and self.available(context) != False:
+			for dep_stub in dep_list:
+				dep_stub.delete(context, plan)
+			plan.append(op)
+			
+	def update(self, context, plan):
+	
+		"""
+		Include delete and insert operations to the given plan.
 		
+		:param execution.Context context:
+		   Current execution context.
+		:param list plan:
+		   List of :class:`execution.Operation` instances.
+		"""
+		
+		delete_plan = []
+		self.delete(context, delete_plan)
+		for op in delete_plan:
+			comp = self.__comp_stub_reg.get(op.name())
+			comp.delete(context, plan)
+		for op in delete_plan:
+			comp = self.__comp_stub_reg.get(op.name())
+			comp.insert(context, plan)
+			
 class ComponentStubRegistry:
 
 	"""
