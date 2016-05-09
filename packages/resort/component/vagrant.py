@@ -74,7 +74,7 @@ class BoxFile:
 	def available(self, context):
 	
 		"""
-		Box is available for this user.
+		Box is available for the calling user.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
@@ -92,7 +92,7 @@ class BoxFile:
 	def insert(self, context):
 	
 		"""
-		Add Vagrant box to this user.
+		Add Vagrant box to the calling user.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
@@ -110,7 +110,7 @@ class BoxFile:
 	def delete(self, context):
 	
 		"""
-		Delete Vagrant box from this user.
+		Delete Vagrant box from the calling user.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.

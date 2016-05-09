@@ -38,7 +38,7 @@ class Context:
 	def base_path(self, path):
 	
 		"""
-		Relative path from base directory.
+		Absolute path from base directory.
 		
 		:path str path:
 		   Relative path.
@@ -55,7 +55,7 @@ class Context:
 	def profile_path(self, path):
 	
 		"""
-		Relative path from profile working directory.
+		Absolute path from profile working directory.
 		
 		:path str path:
 		   Relative path.

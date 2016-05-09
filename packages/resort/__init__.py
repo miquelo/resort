@@ -123,6 +123,15 @@ def argparse_status_depth(value):
 	except:
 		pass
 	raise argparse.ArgumentTypeError("Bad tree depth {}".format(value))
+	
+#
+# Component existence check
+#
+def component_exists(prof_stub, comp_stub):
+
+	if comp_stub not in prof_stub.component_list():
+		msg = "Component \"{}\" does not exist"
+		raise Exception(msg.format(comp_stub.name()))
 		
 #		
 # Component status printer
@@ -272,6 +281,7 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 	else:
 		for comp_name in args.components:
 			comp_stub = prof_stub.component(comp_name)
+			component_exists(prof_stub, comp_stub)
 			comp_stubs.append(comp_stub)
 			
 	# Print status
@@ -319,6 +329,7 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 	else:
 		for comp_name in args.components:
 			comp_stub = prof_stub.component(comp_name)
+			component_exists(prof_stub, comp_stub)
 			comp_stubs.append(comp_stub)
 			
 	# Create insert plan
@@ -359,6 +370,7 @@ def command_delete(prog_name, prof_mgr, prof_name, prog_args):
 	comp_stubs = []
 	for comp_name in args.components:
 		comp_stub = prof_stub.component(comp_name)
+		component_exists(prof_stub, comp_stub)
 		comp_stubs.append(comp_stub)
 			
 	# Create delete plan
@@ -404,6 +416,7 @@ def command_update(prog_name, prof_mgr, prof_name, prog_args):
 	else:
 		for comp_name in args.components:
 			comp_stub = prof_stub.component(comp_name)
+			component_exists(prof_stub, comp_stub)
 			comp_stubs.append(comp_stub)
 			
 	# Create update plan
