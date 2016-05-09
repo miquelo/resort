@@ -46,6 +46,9 @@ class Image:
 	
 		"""
 		Always return ``None``.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		return None

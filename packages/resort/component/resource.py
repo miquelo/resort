@@ -85,6 +85,9 @@ class Set:
 	
 		"""
 		Return ``None``.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		return None
@@ -93,6 +96,9 @@ class Set:
 	
 		"""
 		Resolve resoures.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		in_path = context.base_path(self.__source_path)
@@ -103,6 +109,9 @@ class Set:
 	
 		"""
 		Does nothing.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		pass

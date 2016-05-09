@@ -75,6 +75,9 @@ class BoxFile:
 	
 		"""
 		Box is available for this user.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		if self.__available is None:
@@ -90,6 +93,9 @@ class BoxFile:
 	
 		"""
 		Add Vagrant box to this user.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		args = [
@@ -105,6 +111,9 @@ class BoxFile:
 	
 		"""
 		Delete Vagrant box from this user.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
 		"""
 		
 		args = [
