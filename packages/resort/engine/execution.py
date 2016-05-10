@@ -15,8 +15,6 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-
 """
 Component execution classes.
 """
@@ -26,48 +24,50 @@ class Context:
 	"""
 	Execution context.
 	
+	:param str base_dir:
+	   Base directory.
 	:param str prof_dir:
-	   Profile directory.
+	   Profile working directory.
 	"""
 	
-	def __init__(self, base_dir, prof_dir):
+	def __init__(self, base_dir, prof_dir, prof_name):
 	
 		self.__base_dir = base_dir
 		self.__prof_dir = prof_dir
+		self.__prof_name = prof_name
 		
-	def base_path(self, path):
+	def base_dir(self):
 	
 		"""
-		Absolute path from base directory.
+		Base directory.
 		
-		:path str path:
-		   Relative path.
 		:rtype:
 		   str
-		:return:
-		   Absolute path from base directory of the given path.
 		"""
 		
-		if os.path.isabs(path):
-			raise Exception("Path '{}' is absolute".format(path))
-		return os.path.join(self.__base_dir, path)
+		return self.__base_dir
 		
-	def profile_path(self, path):
+	def profile_dir(self):
 	
 		"""
-		Absolute path from profile working directory.
+		Profile working directory.
 		
-		:path str path:
-		   Relative path.
 		:rtype:
 		   str
-		:return:
-		   Absolute path from profile working directory of the given path.
 		"""
 		
-		if os.path.isabs(path):
-			raise Exception("Path '{}' is absolute".format(path))
-		return os.path.join(self.__prof_dir, path)
+		return self.__prof_dir
+		
+	def profile_name(self):
+	
+		"""
+		Profile name.
+		
+		:rtype:
+		   str
+		"""
+		
+		return self.__prof_name
 		
 class Operation:
 

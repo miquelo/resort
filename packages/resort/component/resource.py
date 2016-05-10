@@ -28,7 +28,7 @@ class Set:
 	:param str target_path:
 	   Path relaltive to profile working directory.
 	:param dict props:
-	   Resource properties.
+	   Resource properties. Property with name ``context`` is reserved.
 	"""
 	
 	def __init__(self, source_path, target_path, props):
@@ -55,14 +55,14 @@ class Set:
 			repr(self.__props)
 		)
 		
-	def __resolve(self, in_path, out_path):
+	def __resolve(self, context, in_path, out_path):
 	
 		try:
 			if os.path.basename(in_path)[0] != ".":
 				if os.path.isfile(in_path):
 					in_file = open(in_path, "r")
 					out_file = open(out_path, "w")
-					resolver = Resolver(out_file, self.__props)
+					resolver = Resolver(context, out_file, self.__props)
 					c = in_file.read(1)
 					while len(c) > 0:
 						resolver.update(c)
@@ -74,6 +74,7 @@ class Set:
 						os.makedirs(out_path)
 					for fname in os.listdir(in_path):
 						self.__resolve(
+							context,
 							os.path.join(in_path, fname),
 							os.path.join(out_path, fname)
 						)
@@ -101,9 +102,9 @@ class Set:
 		   Current execution context.
 		"""
 		
-		in_path = context.base_path(self.__source_path)
-		out_path = context.profile_path(self.__target_path)
-		self.__resolve(in_path, out_path)
+		in_path = os.path.join(context.base_dir(), self.__source_path)
+		out_path = os.path.join(context.profile_dir(), self.__target_path)
+		self.__resolve(context, in_path, out_path)
 		
 	def delete(self, context):
 	
@@ -124,13 +125,15 @@ class Resolver:
 	:param r_out:
 	   Resolver output.
 	:param dict r_vars:
-	   Resolver variables.
+	   Resolver variables. Variable with name ``context`` is reserved.
 	"""
 	
-	def __init__(self, r_out, r_vars):
+	def __init__(self, context, r_out, r_vars):
 	
+		self.__context = context
 		self.__r_out = r_out
 		self.__r_vars = r_vars
+		self.__r_vars["context"] = self.__context
 		self.__expr = io.StringIO()
 		self.__update = self.__update_plain
 		
@@ -177,7 +180,7 @@ class Resolver:
 		
 	def __resolve(self):
 	
-		resolver = Resolver(self.__r_out, self.__r_vars)
+		resolver = Resolver(self.__context, self.__r_out, self.__r_vars)
 		self.__expr.seek(0)
 		for c in eval(self.__expr.read(), {}, self.__r_vars):
 			resolver.update(c)

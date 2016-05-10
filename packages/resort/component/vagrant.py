@@ -25,10 +25,10 @@ class VagrantObject:
 	
 		pass
 		
-	def execute(self, cmd_args):
+	def read(self, cmd_args):
 	
 		"""
-		Execute Vagrant command.
+		Execute Vagrant read command.
 		
 		:param list cmd_args:
 		   Command argument list.
@@ -43,36 +43,50 @@ class VagrantObject:
 		for line in proc.stdout.readlines():
 			if len(line) == 0:
 				break
-			yield line.decode("UTF-8")
+			yield line.decode("UTF-8").rsplit(",")
 		proc.wait()
+		
+	def write(self, cmd_args):
+	
+		"""
+		Execute Vagrant write command.
+		
+		:param list cmd_args:
+		   Command argument list.
+		"""
+		
+		args = [
+			"vagrant"
+		]
+		args.extend(cmd_args)
+		subprocess.call(args)
 		
 class BoxFile(VagrantObject):
 
 	"""
 	Vagrant box from file. Implements :class:`Component`.
 	
-	:param str name:
-	   Box name.
+	:param name_fn:
+	   Box name function for the given context.
 	:param str image_dir:
 	   Box image directory.
 	"""
 	
-	def __init__(self, name, image_dir):
+	def __init__(self, name_fn, image_dir):
 	
-		self.__name = name
+		self.__name_fn = name_fn
 		self.__image_dir = image_dir
 		self.__available = None
 		
 	def __box_list(self):
 	
 		result_entry = {}
-		for line in self.execute([
+		for line in self.read([
 			"box",
 			"list"
 		]):
-			line_split = line.rsplit(",")
-			key = line_split[2]
-			value = line_split[3].strip()
+			key = line[2]
+			value = line[3].strip()
 			if key == "box-name":
 				if len(result_entry) > 0:
 					yield result_entry
@@ -85,9 +99,10 @@ class BoxFile(VagrantObject):
 		if len(result_entry) > 0:
 			yield result_entry
 			
-	def __path(self):
+	def __path(self, context):
 	
-		for fname in os.listdir(self.__image_dir):
+		for fname in os.listdir(os.path.join(context.profile_dir(),
+				self.__image_dir)):
 			if fname.endswith(".box"):
 				return os.path.join(self.__image_dir, fname)
 		raise Exception("Box image not found at {}".format(self.__image_dir))
@@ -104,7 +119,8 @@ class BoxFile(VagrantObject):
 		if self.__available is None:
 			avail = False
 			for box in self.__box_list():
-				if box["name"] == self.__name and box["version"] == "0":
+				name = self.__name_fn(context)
+				if box["name"] == name and box["version"] == "0":
 					avail = True
 					break
 			self.__available = avail
@@ -119,11 +135,11 @@ class BoxFile(VagrantObject):
 		   Current execution context.
 		"""
 		
-		self.execute([
+		self.write([
 			"box",
 			"add",
-			"--name", self.__name,
-			self.__path()
+			"--name", self.__name_fn(context),
+			self.__path(context)
 		])
 		
 	def delete(self, context):
@@ -135,10 +151,10 @@ class BoxFile(VagrantObject):
 		   Current execution context.
 		"""
 		
-		self.execute([
+		self.write([
 			"box",
 			"remove",
-			self.__name
+			self.__name_fn(context)
 		])
 		
 class Instance(VagrantObject):
@@ -148,19 +164,20 @@ class Instance(VagrantObject):
 	
 	:param str config_dir:
 	   Profile relative configuration directory.
-	:param str name:
-	   Instance name.
+	:param name_fn:
+	   Instance name function for the given context.
 	"""
 	
-	def __init__(self, config_dir, name):
+	def __init__(self, config_dir, name_fn):
 	
 		self.__config_dir = config_dir
-		self.__name = name
+		self.__name_fn = name_fn
 		
-	def execute_it(self, context, cmd_args):
+	def read(self, context, cmd_args):
 	
 		"""
-		Execute Vagrant instance command into configuration directory.
+		Execute Vagrant read command on instance placed into configuration
+		directory.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
@@ -170,11 +187,33 @@ class Instance(VagrantObject):
 		
 		try:
 			current_dir = os.getcwd()
-			os.chdir(context.profile_path(self.__config_dir))
+			os.chdir(os.path.join(context.profile_dir(), self.__config_dir))
 			args = []
 			args.extend(cmd_args)
-			args.append(self.__name)
-			yield from self.execute(args)
+			args.append(self.__name_fn(context))
+			yield from super().read(args)
+		finally:
+			os.chdir(current_dir)
+			
+	def write(self, context, cmd_args):
+	
+		"""
+		Execute Vagrant write command on instance placed into configuration
+		directory.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		:param list cmd_args:
+		   Command argument list.
+		"""
+		
+		try:
+			current_dir = os.getcwd()
+			os.chdir(os.path.join(context.profile_dir(), self.__config_dir))
+			args = []
+			args.extend(cmd_args)
+			args.append(self.__name_fn(context))
+			super().write(args)
 		finally:
 			os.chdir(current_dir)
 			
@@ -192,15 +231,12 @@ class Instance(VagrantObject):
 		"""
 		
 		state = None
-		for line in self.execute_it(context, [
+		for line in self.read(context, [
 			"status",
-			self.__name
+			self.__name_fn(context)
 		]):
-			line_split = line.rsplit(",")
-			key = line_split[2]
-			value = line_split[3].strip()
-			if key == "state":
-				state = value
+			if line[2] == "state":
+				state = line[3].strip()
 		return state
 			
 	def created(self):
@@ -252,7 +288,8 @@ class InstanceCreated:
 		   Availability value.
 		"""
 		if self.__available is None:
-			self.__available = self.__inst.state(context) != "not_created"
+			state = self.__inst.state(context)
+			self.__available = state is not None and state != "not_created"
 		return self.__available
 		
 	def insert(self, context):
@@ -264,7 +301,7 @@ class InstanceCreated:
 		   Current execution context.
 		"""
 		
-		self.__inst.execute_it(context, [
+		self.__inst.write(context, [
 			"up"
 		])
 		
@@ -277,7 +314,7 @@ class InstanceCreated:
 		   Current execution context.
 		"""
 		
-		self.__inst.execute_it(context, [
+		self.__inst.write(context, [
 			"destroy",
 			"-f"
 		])
@@ -322,7 +359,7 @@ class InstanceRunning:
 		   Current execution context.
 		"""
 		
-		self.__inst.execute_it(context, [
+		self.__inst.write(context, [
 			"up"
 		])
 		
@@ -335,7 +372,7 @@ class InstanceRunning:
 		   Current execution context.
 		"""
 		
-		self.__inst.execute_it(context, [
+		self.__inst.write(context, [
 			"halt"
 		])
 

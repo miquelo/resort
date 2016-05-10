@@ -173,7 +173,8 @@ class ProfileStub:
 		   The created execution context.
 		"""
 		
-		return execution.Context(self.__base_dir, self.__prof_dir)
+		return execution.Context(self.__base_dir, self.__prof_dir,
+				self.__prof_name)
 		
 	def prepare(self, props):
 	
