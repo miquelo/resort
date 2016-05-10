@@ -19,10 +19,37 @@ import io
 import os
 import subprocess
 
-class BoxFile:
+class VagrantObject:
+
+	def __init__(self):
+	
+		pass
+		
+	def execute(self, cmd_args):
+	
+		"""
+		Execute Vagrant command.
+		
+		:param list cmd_args:
+		   Command argument list.
+		"""
+		
+		args = [
+			"vagrant",
+			"--machine-readable"
+		]
+		args.extend(cmd_args)
+		proc = subprocess.Popen(args, stdout=subprocess.PIPE)
+		for line in proc.stdout.readlines():
+			if len(line) == 0:
+				break
+			yield line.decode("UTF-8")
+		proc.wait()
+		
+class BoxFile(VagrantObject):
 
 	"""
-	Vagrant box from file.
+	Vagrant box from file. Implements :class:`Component`.
 	
 	:param str name:
 	   Box name.
@@ -38,32 +65,26 @@ class BoxFile:
 		
 	def __box_list(self):
 	
-		args = [
-			"vagrant",
-			"--machine-readable",
+		result_entry = {}
+		for line in self.execute([
 			"box",
 			"list"
-		]
-		proc = subprocess.Popen(args, stdout=subprocess.PIPE)
-		result_entry = {}
-		for line in proc.stdout.readlines():
-			if len(line) > 0:
-				line_split = line.decode("UTF-8").rsplit(",")
-				key = line_split[2]
-				value = line_split[3].strip()
-				if key == "box-name":
-					if len(result_entry) > 0:
-						yield result_entry
-						result_entry = {}
-					result_entry["name"] = value
-				elif key == "box-provider":
-					result_entry["provider"] = value
-				elif key == "box-version":
-					result_entry["version"] = value
+		]):
+			line_split = line.rsplit(",")
+			key = line_split[2]
+			value = line_split[3].strip()
+			if key == "box-name":
+				if len(result_entry) > 0:
+					yield result_entry
+					result_entry = {}
+				result_entry["name"] = value
+			elif key == "box-provider":
+				result_entry["provider"] = value
+			elif key == "box-version":
+				result_entry["version"] = value
 		if len(result_entry) > 0:
 			yield result_entry
-		proc.wait()
-		
+			
 	def __path(self):
 	
 		for fname in os.listdir(self.__image_dir):
@@ -98,14 +119,12 @@ class BoxFile:
 		   Current execution context.
 		"""
 		
-		args = [
-			"vagrant",
+		self.execute([
 			"box",
 			"add",
 			"--name", self.__name,
 			self.__path()
-		]
-		subprocess.call(args)
+		])
 		
 	def delete(self, context):
 	
@@ -116,11 +135,207 @@ class BoxFile:
 		   Current execution context.
 		"""
 		
-		args = [
-			"vagrant",
+		self.execute([
 			"box",
 			"remove",
 			self.__name
-		]
-		subprocess.call(args)
+		])
+		
+class Instance(VagrantObject):
+
+	"""
+	Vagrant instance.
+	
+	:param str config_dir:
+	   Profile relative configuration directory.
+	:param str name:
+	   Instance name.
+	"""
+	
+	def __init__(self, config_dir, name):
+	
+		self.__config_dir = config_dir
+		self.__name = name
+		
+	def execute_it(self, context, cmd_args):
+	
+		"""
+		Execute Vagrant instance command into configuration directory.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		:param list cmd_args:
+		   Command argument list.
+		"""
+		
+		try:
+			current_dir = os.getcwd()
+			os.chdir(context.profile_path(self.__config_dir))
+			args = []
+			args.extend(cmd_args)
+			args.append(self.__name)
+			yield from self.execute(args)
+		finally:
+			os.chdir(current_dir)
+			
+	def state(self, context):
+	
+		"""
+		Get instance state.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		:rtype:
+		   str
+		:return:
+		   Instance state name.
+		"""
+		
+		state = None
+		for line in self.execute_it(context, [
+			"status",
+			self.__name
+		]):
+			line_split = line.rsplit(",")
+			key = line_split[2]
+			value = line_split[3].strip()
+			if key == "state":
+				state = value
+		return state
+			
+	def created(self):
+	
+		"""
+		Instance created component.
+		
+		:rtype:
+		   InstanceCreated
+		"""
+		
+		return InstanceCreated(self)
+		
+	def running(self):
+	
+		"""
+		Instance running component.
+		
+		:rtype:
+		   InstanceRunning
+		"""
+		
+		return InstanceRunning(self)
+		
+class InstanceCreated:
+
+	"""
+	Vagrant instance created. Implements :class:`Component`.
+	
+	:param Instance inst:
+	   Managed instance.
+	"""
+	
+	def __init__(self, inst):
+	
+		self.__inst = inst
+		self.__available = None
+		
+	def available(self, context):
+	
+		"""
+		Check availability.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		:rtype:
+		   bool
+		:return:
+		   Availability value.
+		"""
+		if self.__available is None:
+			self.__available = self.__inst.state(context) != "not_created"
+		return self.__available
+		
+	def insert(self, context):
+	
+		"""
+		Create instance.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		"""
+		
+		self.__inst.execute_it(context, [
+			"up"
+		])
+		
+	def delete(self, context):
+	
+		"""
+		Delete instance.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		"""
+		
+		self.__inst.execute_it(context, [
+			"destroy",
+			"-f"
+		])
+		
+class InstanceRunning:
+
+	"""
+	Vagrant instance running. Implements :class:`Component`.
+	
+	:param Instance inst:
+	   Managed instance.
+	"""
+	
+	def __init__(self, inst):
+	
+		self.__inst = inst
+		self.__available = None
+		
+	def available(self, context):
+	
+		"""
+		Check availability.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		:rtype:
+		   bool
+		:return:
+		   Availability value.
+		"""
+		
+		if self.__available is None:
+			self.__available = self.__inst.state(context) == "running"
+		return self.__available
+		
+	def insert(self, context):
+	
+		"""
+		Run instance.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		"""
+		
+		self.__inst.execute_it(context, [
+			"up"
+		])
+		
+	def delete(self, context):
+	
+		"""
+		Stop instance.
+		
+		:param resort.engine.execution.Context context:
+		   Current execution context.
+		"""
+		
+		self.__inst.execute_it(context, [
+			"halt"
+		])
 
