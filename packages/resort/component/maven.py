@@ -18,30 +18,39 @@
 import os
 import subprocess
 
-class Image:
+class Project:
 
 	"""
-	Packer image.
+	Maven project.
 	
 	:param str base_dir:
-	   Template base directory.
-	:param str template_path:
-	   Template file path relative to ``base_dir``.
+	   Project base directory.
+	:param bool dependency:
+	   Project must be installed or only packaged.
 	"""
 	
-	def __init__(self, base_dir, template_path):
+	def __init__(self, base_dir, dependency=False):
 	
 		self.__base_dir = base_dir
-		self.__template_path = template_path
+		self.__dependency = dependency
 		
 	def __repr__(self):
 	
 		return "{}.{}({}, {})".format(
 			self.__module__,
 			type(self).__name__,
-			repr(self.__base_dir),
-			repr(self.__template_path)
+			repr(self.__base_dir)
 		)
+		
+	def __execute(self, context, phase):
+	
+		subprocess.call([
+			"mvn",
+			"-f",
+			os.path.join(os.path.join(context.base_dir(), self.__base_dir),
+					"pom.xml"),
+			phase
+		])
 		
 	def available(self, context):
 	
@@ -57,23 +66,16 @@ class Image:
 	def insert(self, context):
 	
 		"""
-		Build the image.
+		Build the project.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
 		"""
 		
-		try:
-			current_dir = os.getcwd()
-			os.chdir(os.path.join(context.profile_dir(), self.__base_dir))
-			args = [
-				"packer",
-				"build",
-				self.__template_path
-			]
-			subprocess.call(args)
-		finally:
-			os.chdir(current_dir)
+		if self.__dependency:
+			self.__execute(context, "install")
+		else:
+			self.__execute(context, "package")
 		
 	def delete(self, context):
 	
@@ -84,5 +86,5 @@ class Image:
 		   Current execution context.
 		"""
 		
-		pass
+		self.__execute(context, "clean")
 
