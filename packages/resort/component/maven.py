@@ -21,7 +21,7 @@ import subprocess
 class Project:
 
 	"""
-	Maven project.
+	Maven project. Implements :class:`Component`.
 	
 	:param str base_dir:
 	   Project base directory.
