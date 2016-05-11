@@ -21,6 +21,10 @@ import subprocess
 
 class VagrantObject:
 
+	"""
+	Vagrant object.
+	"""
+	
 	def __init__(self):
 	
 		pass
