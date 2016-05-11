@@ -16,6 +16,7 @@
 #
 
 import os
+import shutil
 import subprocess
 
 class Image:
@@ -73,6 +74,7 @@ class Image:
 			]
 			subprocess.call(args)
 		finally:
+			shutil.rmtree("output-*", ignore_errors=True)
 			os.chdir(current_dir)
 		
 	def delete(self, context):
