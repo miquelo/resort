@@ -104,7 +104,8 @@ class BoxFile(VagrantObject):
 		for fname in os.listdir(os.path.join(context.profile_dir(),
 				self.__image_dir)):
 			if fname.endswith(".box"):
-				return os.path.join(self.__image_dir, fname)
+				return os.path.join(os.path.join(context.profile_dir(),
+						self.__image_dir), fname)
 		raise Exception("Box image not found at {}".format(self.__image_dir))
 		
 	def available(self, context):
