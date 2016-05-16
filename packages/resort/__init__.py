@@ -276,14 +276,12 @@ def command_status(prog_name, prof_mgr, prof_name, prog_args):
 	# Collect component stubs
 	comp_stubs = []
 	if len(args.components) == 0:
-		comp_stub = prof_stub.component(None)
-		comp_stubs.extend(comp_stub.dependencies())
-	else:
-		for comp_name in args.components:
-			comp_stub = prof_stub.component(comp_name)
-			component_exists(prof_stub, comp_stub)
-			comp_stubs.append(comp_stub)
-			
+		raise Exception("Empty component list")
+	for comp_name in args.components:
+		comp_stub = prof_stub.component(comp_name)
+		component_exists(prof_stub, comp_stub)
+		comp_stubs.append(comp_stub)
+		
 	# Print status
 	show_type = args.show_type
 	tree_depth = args.tree_depth
@@ -323,15 +321,12 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 	# Collect component stubs
 	comp_stubs = []
 	if len(args.components) == 0:
-		comp_stub = prof_stub.component(None)
+		raise Exception("Empty component list")
+	for comp_name in args.components:
+		comp_stub = prof_stub.component(comp_name)
+		component_exists(prof_stub, comp_stub)
 		comp_stubs.append(comp_stub)
-		comp_stubs.extend(comp_stub.dependencies())
-	else:
-		for comp_name in args.components:
-			comp_stub = prof_stub.component(comp_name)
-			component_exists(prof_stub, comp_stub)
-			comp_stubs.append(comp_stub)
-			
+		
 	# Create insert plan
 	context = prof_stub.context()
 	plan = []
@@ -368,6 +363,8 @@ def command_delete(prog_name, prof_mgr, prof_name, prog_args):
 	
 	# Collect component stubs
 	comp_stubs = []
+	if len(args.components) == 0:
+		raise Exception("Empty component list")
 	for comp_name in args.components:
 		comp_stub = prof_stub.component(comp_name)
 		component_exists(prof_stub, comp_stub)
@@ -410,14 +407,11 @@ def command_update(prog_name, prof_mgr, prof_name, prog_args):
 	# Collect component stubs
 	comp_stubs = []
 	if len(args.components) == 0:
-		comp_stub = prof_stub.component(None)
+		raise Exception("Empty component list")
+	for comp_name in args.components:
+		comp_stub = prof_stub.component(comp_name)
+		component_exists(prof_stub, comp_stub)
 		comp_stubs.append(comp_stub)
-		comp_stubs.extend(comp_stub.dependencies())
-	else:
-		for comp_name in args.components:
-			comp_stub = prof_stub.component(comp_name)
-			component_exists(prof_stub, comp_stub)
-			comp_stubs.append(comp_stub)
 			
 	# Create update plan
 	context = prof_stub.context()
