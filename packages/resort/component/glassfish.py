@@ -172,10 +172,11 @@ class Domain:
 			if self.__available is None:
 				status_code, msg = self.__endpoint.get("")
 				self.__available = status_code == 200
-			return self.__available
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -367,11 +368,12 @@ class Application:
 				status_code, msg = self.__endpoint.get(
 					"/applications/application/{}".format(encoded_name)
 				)
-				self.__available = status_code != 404
-			return self.__available
+				self.__available = status_code == 200
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -444,11 +446,12 @@ class JDBCResource:
 				status_code, msg = self.__endpoint.get(
 					"/resources/jdbc-resource/{}".format(encoded_name)
 				)
-				self.__available = status_code != 404
-			return self.__available
+				self.__available = status_code == 200
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -516,10 +519,11 @@ class ConnectorResource:
 					"/resources/connector-resource/{}".format(encoded_name)
 				)
 				self.__available = status_code == 200
-			return self.__available
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -595,11 +599,12 @@ class MailSession:
 				status_code, msg = self.__endpoint.get(
 					"/resources/mail-resource/{}".format(encoded_name)
 				)
-				self.__available = status_code != 404
-			return self.__available
+				self.__available = status_code == 200
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -676,10 +681,11 @@ class CustomResource:
 					"/resources/custom-resource/{}".format(encoded_name)
 				)
 				self.__available = status_code == 200
-			return self.__available
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -754,11 +760,12 @@ class JDBCConnectionPool:
 				status_code, msg = self.__endpoint.get(
 					"/resources/jdbc-connection-pool/{}".format(encoded_name)
 				)
-				self.__available = status_code != 404
-			return self.__available
+				self.__available = status_code == 200
 		except:
-			return False
+			self.__available = False
 			
+		return self.__available
+		
 	def insert(self, context):
 	
 		"""
@@ -834,10 +841,11 @@ class ConnectorConnectionPool:
 					"/resources/connector-connection-pool/{}".format(
 							encoded_name)
 				)
-				self.__available = status_code != 404
-			return self.__available
+				self.__available = status_code == 200
 		except:
-			return False
+			self.__available = False
+			
+		return self.__available
 			
 	def insert(self, context):
 	
