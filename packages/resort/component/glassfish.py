@@ -180,15 +180,18 @@ class Domain:
 	def insert(self, context):
 	
 		"""
-		Raise error. Domain cannot be inserted.
+		Wait domain to be available.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
 		:raise Exception:
-		   Domain cannot be inserted.
+		   Domain could not been inserted.
 		"""
 		
-		raise Exception("GlassFish domain cannot be inserted")
+		status_code, msg = self.__endpoint.get("", self.__avail_timeout)
+		if status_code != 200:
+			raise Exception("GlassFish domain could not been inserted")
+		self.__available = True
 		
 	def delete(self, context):
 	
