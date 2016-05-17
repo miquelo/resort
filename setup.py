@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name="resort",
-	version="0.1.0",
+	version="0.1.1",
 	
 	author="RESORT Team",
 	author_email="miquel.ferran.gonzalez@gmail.com",
@@ -33,10 +33,10 @@ setup(
 	},
 	test_suite="testsuite.resort",
 	
-	url="http://pypi.python.org/pypi/resort_0.1.0/",
+	url="http://pypi.python.org/pypi/resort_0.1.1/",
 	
 	license="LICENSE.txt",
 	description="Component manager for software projects.",
-	long_description=open("README.md").read()
+	long_description="Read documentation at http://miquelo.github.io/resort/."
 )
 
