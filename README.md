@@ -37,9 +37,12 @@ Package should be registered at [PyPI](https://pypi.python.org) with
 $ python3 setup.py register
 ```
 
-Change version in ``setup.py`` file and execute
+On branch ``develop``, change version in ``setup.py`` file, commit changes and
+execute
 
 ```
 $ python3 setup.py sdist bdist_wheel upload
+$ git tag -a <version> -m "<version_description>"
+$ git push origin <version>
 ```
 
