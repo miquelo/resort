@@ -28,3 +28,18 @@ $ git stash pop
 
 Documentation will be available [here](http://miquelo.github.io/resort/).
 
+Release
+-------
+
+Package should be registered at [PyPI](https://pypi.python.org) with
+
+```
+$ python3 setup.py register
+```
+
+Change version in ``setup.py`` file and execute
+
+```
+$ python3 setup.py sdist bdist_wheel upload
+```
+

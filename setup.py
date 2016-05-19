@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name="resort",
-	version="0.1.1",
+	version="0.1.4",
 	
 	author="RESORT Team",
 	author_email="miquel.ferran.gonzalez@gmail.com",
@@ -33,10 +33,13 @@ setup(
 	},
 	test_suite="testsuite.resort",
 	
-	url="http://pypi.python.org/pypi/resort_0.1.1/",
+	url="http://miquelo.github.io/resort/",
 	
 	license="LICENSE.txt",
 	description="Component manager for software projects.",
-	long_description="Read documentation at http://miquelo.github.io/resort/."
+	long_description=(
+		"Module for project management based on profiles whose components "
+		"are included in dependency trees and execution plans."
+	)
 )
 
