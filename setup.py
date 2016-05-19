@@ -19,7 +19,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name="resort",
-	version="0.1.6",
+	version="0.1.7",
 	
 	author="RESORT Team",
 	author_email="miquel.ferran.gonzalez@gmail.com",

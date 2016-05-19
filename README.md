@@ -43,6 +43,9 @@ execute
 ```
 $ python3 setup.py sdist bdist_wheel upload
 $ git tag -a <version> -m "<version_description>"
-$ git push origin <version>
+$ git push <remote> <version>
+$ git checkout master
+$ git merge develop
+$ git push <remote> master
 ```
 
