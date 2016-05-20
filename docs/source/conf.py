@@ -22,10 +22,10 @@ import os
 # Load project.ini
 #
 
-project_ini = configparser.ConfigParser()
-project_ini.read(os.path.join(
-	os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-	"project.ini"
+package_ini = configparser.ConfigParser()
+package_ini.read(os.path.join(
+	os.path.dirname(os.path.abspath(__file__)),
+	"../../package.ini"
 ))
 
 #
@@ -45,11 +45,11 @@ source_suffix = ".rst"
 master_doc = "index"
 
 project = "RESORT"
-version = project_ini["project"]["version"]
-release = project_ini["project"]["version"]
+version = package_ini["project"]["version"]
+release = package_ini["project"]["version"]
 
-copyright = "2015, {}".format(project_ini["project"]["author"])
-author = project_ini["project"]["author"]
+copyright = "2015, {}".format(package_ini["project"]["author"])
+author = package_ini["project"]["author"]
 
 language = None
 exclude_patterns = []
@@ -78,7 +78,7 @@ latex_documents = [
 		master_doc,
 		"RESORT.tex",
 		"RESORT Documentation",
-		project_ini["project"]["author"],
+		package_ini["project"]["author"],
 		"manual"
 	)
 ]
