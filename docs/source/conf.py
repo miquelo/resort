@@ -16,12 +16,17 @@
 #
 
 import configparser
+import os
 
 #
-# Load setup.ini
+# Load project.ini
 #
 
-# TODO ...
+project_ini = configparser.ConfigParser()
+project_ini.read(os.path.join(
+	os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+	"project.ini"
+))
 
 #
 # General configuration
@@ -40,11 +45,11 @@ source_suffix = ".rst"
 master_doc = "index"
 
 project = "RESORT"
-version = setup_ini["version"]
-release = setup_ini["version"]
+version = project_ini["project"]["version"]
+release = project_ini["project"]["version"]
 
-copyright = "2015, {}".format(setup_ini["author"])
-author = setup_ini["author"]
+copyright = "2015, {}".format(project_ini["project"]["author"])
+author = project_ini["project"]["author"]
 
 language = None
 exclude_patterns = []
@@ -73,7 +78,7 @@ latex_documents = [
 		master_doc,
 		"RESORT.tex",
 		"RESORT Documentation",
-		setup_ini["author"],
+		project_ini["project"]["author"],
 		"manual"
 	)
 ]

@@ -17,11 +17,20 @@
 
 from setuptools import setup, find_packages
 
+import configparser
+import os
+
+project_ini = configparser.ConfigParser()
+project_ini.read(os.path.join(
+	os.path.dirname(os.path.abspath(__file__)),
+	"project.ini"
+))
+
 setup(
 	name="resort",
-	version="0.1.7",
+	version=project_ini["project"]["version"],
 	
-	author="RESORT Team",
+	author=project_ini["project"]["author"],
 	author_email="miquel.ferran.gonzalez@gmail.com",
 	
 	packages=find_packages("packages"),
