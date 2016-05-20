@@ -15,6 +15,14 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import configparser
+
+#
+# Load setup.ini
+#
+
+# TODO ...
+
 #
 # General configuration
 #
@@ -32,11 +40,11 @@ source_suffix = ".rst"
 master_doc = "index"
 
 project = "RESORT"
-version = "0.1.0"
-release = "0.1.0"
+version = setup_ini["version"]
+release = setup_ini["version"]
 
-copyright = "2015, Miquel A. Ferran Gonzalez"
-author = "Miquel A. Ferran Gonzalez"
+copyright = "2015, {}".format(setup_ini["author"])
+author = setup_ini["author"]
 
 language = None
 exclude_patterns = []
@@ -65,7 +73,7 @@ latex_documents = [
 		master_doc,
 		"RESORT.tex",
 		"RESORT Documentation",
-		"Miquel A. Ferran",
+		setup_ini["author"],
 		"manual"
 	)
 ]
