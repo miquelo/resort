@@ -388,7 +388,7 @@ class ComponentStub:
 		op = execution.Delete(self.__comp_name, self.__comp())
 		dep_list = []
 		self.__dependents(self.__comp_stub_reg.get(None), dep_list)
-		if op not in plan and self.available(context) != False:
+		if op not in plan and self.available(context) == True:
 			for dep_stub in dep_list:
 				dep_stub.delete(context, plan)
 			plan.append(op)
