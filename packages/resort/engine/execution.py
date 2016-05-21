@@ -97,7 +97,6 @@ class Operation:
 	
 		return type(self) != type(other) or self.__name != other.__name
 		
-		
 	def __repr__(self):
 	
 		return "{}.{}({}, {})".format(

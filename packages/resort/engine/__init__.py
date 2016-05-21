@@ -393,26 +393,6 @@ class ComponentStub:
 				dep_stub.delete(context, plan)
 			plan.append(op)
 			
-	def update(self, context, plan):
-	
-		"""
-		Include delete and insert operations to the given plan.
-		
-		:param execution.Context context:
-		   Current execution context.
-		:param list plan:
-		   List of :class:`execution.Operation` instances.
-		"""
-		
-		delete_plan = []
-		self.delete(context, delete_plan)
-		for op in delete_plan:
-			comp = self.__comp_stub_reg.get(op.name())
-			comp.delete(context, plan)
-		for op in delete_plan:
-			comp = self.__comp_stub_reg.get(op.name())
-			comp.insert(context, plan)
-			
 class ComponentStubRegistry:
 
 	"""

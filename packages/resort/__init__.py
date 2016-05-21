@@ -412,14 +412,30 @@ def command_update(prog_name, prof_mgr, prof_name, prog_args):
 		comp_stub = prof_stub.component(comp_name)
 		component_exists(prof_stub, comp_stub)
 		comp_stubs.append(comp_stub)
-			
-	# Create update plan
+		
 	context = prof_stub.context()
+	
+	# Create delete plan
 	plan = []
 	for comp_stub in comp_stubs:
-		comp_stub.update(context, plan)
+		comp_stub.delete(context, plan)
 		
-	# Execute update plan
+	# Execute delete plan
+	for op in plan:
+		op.execute(context)
+		
+	# Update component stub list
+	for op in plan:
+		comp_stub = prof_stub.component(op.name())
+		if comp_stub not in comp_stubs:
+			comp_stubs.append(comp_stub)
+	
+	# Create insert plan
+	plan = []
+	for comp_stub in comp_stubs:
+		comp_stub.insert(context, plan)
+		
+	# Execute insert plan
 	for op in plan:
 		op.execute(context)
 

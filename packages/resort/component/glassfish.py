@@ -202,7 +202,7 @@ class Domain:
 		   Current execution context.
 		"""
 		
-		pass
+		self.__available = None
 		
 	def application(self, name, context_root, path_fn):
 	
@@ -400,6 +400,7 @@ class Application:
 			}
 		)
 		module_file.close()
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -413,6 +414,7 @@ class Application:
 		status_code, msg = self.__endpoint.delete(
 			"/applications/application/{}".format(self.__name)
 		)
+		self.__available = False
 		
 class JDBCResource:
 
@@ -471,6 +473,7 @@ class JDBCResource:
 				"poolName": self.__pool_name
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -485,6 +488,7 @@ class JDBCResource:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/jdbc-resource/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 class ConnectorResource:
 
@@ -543,6 +547,7 @@ class ConnectorResource:
 				"poolname": self.__pool_name
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -557,6 +562,7 @@ class ConnectorResource:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/connector-resource/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 class MailSession:
 
@@ -627,6 +633,7 @@ class MailSession:
 				"property": props_value(self.__props)
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -641,6 +648,7 @@ class MailSession:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/mail-resource/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 class CustomResource:
 
@@ -707,6 +715,7 @@ class CustomResource:
 				"property": props_value(self.__props)
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -721,6 +730,7 @@ class CustomResource:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/custom-resource/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 class JDBCConnectionPool:
 
@@ -787,6 +797,7 @@ class JDBCConnectionPool:
 				"property": props_value(self.__props)
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -801,6 +812,7 @@ class JDBCConnectionPool:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/jdbc-connection-pool/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 class ConnectorConnectionPool:
 
@@ -868,6 +880,7 @@ class ConnectorConnectionPool:
 				"property": props_value(self.__props)
 			}
 		)
+		self.__available = True
 		
 	def delete(self, context):
 	
@@ -882,6 +895,7 @@ class ConnectorConnectionPool:
 		status_code, msg = self.__endpoint.delete(
 			"/resources/connector-connection-pool/{}".format(encoded_name)
 		)
+		self.__available = False
 		
 def domain(host, port, username, password, avail_timeout=240.):
 	
