@@ -5,8 +5,15 @@ Documentation
 -------------
 
 To build documentation at GitHub Pages, at the project root path and
-documentation branch, follow next steps. If *gf-pages* remote branch exists,
-remove it.
+documentation branch, follow next steps.
+
+If *gf-pages* remote branch exists, remove it with
+
+```
+$ git push <remote> :gh-pages
+```
+
+Then create documentation and upload it with
 
 ```
 $ python3 setup.py build_sphinx
