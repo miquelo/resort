@@ -397,7 +397,8 @@ class Application:
 			data=data,
 			files={
 				"id": module_file
-			}
+			},
+			timeout=60.
 		)
 		module_file.close()
 		self.__available = True
