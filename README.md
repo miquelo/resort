@@ -7,15 +7,8 @@ Documentation
 To build documentation at GitHub Pages, at the project root path and
 documentation branch, follow next steps.
 
-If *gf-pages* remote branch exists, remove it with
-
 ```
 $ git push <remote> :gh-pages
-```
-
-Then create documentation and upload it with
-
-```
 $ python3 setup.py build_sphinx
 $ mkdir .tmp
 $ mv docs/build/html/* .tmp
@@ -28,7 +21,7 @@ $ touch .nojekyll
 $ git add --all .
 $ git commit -m "Project doumentation"
 $ git push <remote> gh-pages
-$ git checkout <documentation_branch>
+$ git checkout -
 $ git branch -D gh-pages
 $ git stash pop
 ```
@@ -52,7 +45,7 @@ $ python3 setup.py sdist bdist_wheel upload
 $ git tag -a <version> -m "<version_description>"
 $ git push <remote> <version>
 $ git checkout master
-$ git merge develop
+$ git merge --no-ff develop
 $ git push <remote> master
 ```
 
