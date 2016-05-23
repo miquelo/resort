@@ -18,7 +18,7 @@ $ python3 setup.py sdist bdist_wheel upload
 $ git tag -a <version> -m "<version_description>"
 $ git push <remote> <version>
 $ git checkout master
-$ git merge --no-ff develop
+$ git merge --no-ff --no-edit develop
 $ git push <remote> master
 $ git checkout develop
 ```
@@ -29,7 +29,6 @@ Documentation
 On branch ``develop``, execute
 
 ```
-$ git checkout <version>
 $ git push <remote> :gh-pages
 $ python3 setup.py build_sphinx
 $ mkdir .tmp
