@@ -302,14 +302,15 @@ class ComponentStub:
 	
 		return self.__comp_inst.available(context)
 		
-	def __dependents(self, comp_stub, dep_list):
+	def __dependents(self, comp_stub):
 	
 		for dep_stub in comp_stub.dependencies():
 			if dep_stub == self:
-				dep_list.append(comp_stub)
+				yield comp_stub
 			else:
-				self.__dependents(dep_stub, dep_list)
-				
+				yield from self.__dependents(dep_stub)
+		yield from ()
+		
 	def name(self):
 	
 		"""
@@ -387,9 +388,7 @@ class ComponentStub:
 		
 		op = execution.Delete(self.__comp_name, self.__comp())
 		if op not in plan and self.available(context) != False:
-			dep_list = []
-			self.__dependents(self.__comp_stub_reg.get(None), dep_list)
-			for dep_stub in dep_list:
+			for dep_stub in self.__dependents(self.__comp_stub_reg.get(None)):
 				dep_stub.delete(context, plan)
 			plan.append(op)
 			
