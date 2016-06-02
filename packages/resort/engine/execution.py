@@ -28,6 +28,8 @@ class Context:
 	   Base directory.
 	:param str prof_dir:
 	   Profile working directory.
+    :param str prof_name:
+       Profile name.
 	"""
 	
 	def __init__(self, base_dir, prof_dir, prof_name):
@@ -36,6 +38,20 @@ class Context:
 		self.__prof_dir = prof_dir
 		self.__prof_name = prof_name
 		
+    def resolve(self, value):
+        
+        """
+        Resolve contextual value.
+        
+        :param value:
+           Contextual value.
+        :return:
+           Resolved value if it is a :func:`contextual` function or value
+           itself if not.
+        """
+        
+        return None
+        
 	def base_dir(self):
 	
 		"""
