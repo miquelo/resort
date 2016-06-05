@@ -14,7 +14,6 @@ Interfaces
    
    engine/interfaces/component
    engine/interfaces/profile
-   engine/interfaces/contextual
    
 Modules
 -------

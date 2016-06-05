@@ -15,6 +15,8 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import collections
+
 """
 Component execution classes.
 """
@@ -23,13 +25,13 @@ class Context:
 
 	"""
 	Execution context.
-	
+
 	:param str base_dir:
 	   Base directory.
 	:param str prof_dir:
 	   Profile working directory.
-    :param str prof_name:
-       Profile name.
+	:param str prof_name:
+	   Profile name.
 	"""
 	
 	def __init__(self, base_dir, prof_dir, prof_name):
@@ -38,52 +40,26 @@ class Context:
 		self.__prof_dir = prof_dir
 		self.__prof_name = prof_name
 		
-    def resolve(self, value):
-        
-        """
-        Resolve contextual value.
-        
-        :param value:
-           Contextual value.
-        :return:
-           Resolved value if it is a :func:`contextual` function or value
-           itself if not.
-        """
-        
-        return None
-        
-	def base_dir(self):
+	def resolve(self, value):
 	
 		"""
-		Base directory.
-		
-		:rtype:
-		   str
+		Resolve contextual value.
+
+		:param value:
+		   Contextual value.
+		:return:
+		   If value is a function with a single parameter, which is a read-only
+		   dictionary, the return value of the function called with context
+		   properties as its parameter. If not, the value itself.
 		"""
 		
-		return self.__base_dir
-		
-	def profile_dir(self):
-	
-		"""
-		Profile working directory.
-		
-		:rtype:
-		   str
-		"""
-		
-		return self.__prof_dir
-		
-	def profile_name(self):
-	
-		"""
-		Profile name.
-		
-		:rtype:
-		   str
-		"""
-		
-		return self.__prof_name
+		if isinstance(value, collections.Callable):
+			return dict((k, v) for k, v in value({
+				"base_dir": self.__base_dir,
+				"prof_dir": self.__prof_dir,
+				"prof_name": self.__prof_name
+			}))
+		return value
 		
 class Operation:
 

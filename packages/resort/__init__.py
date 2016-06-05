@@ -178,6 +178,16 @@ def print_component_status(out, context, comp_stub, last, depth, indent,
 					new_indent, show_type, tree_depth)
 					
 #
+# Operation executor
+#
+def operation_execute(op, context):
+
+	try:
+		op.execute(context)
+	except Exception as ex:
+		print(ex)
+		
+#
 # Command init
 #
 def command_init(prog_name, prof_mgr, prof_name, prog_args):
@@ -333,9 +343,9 @@ def command_insert(prog_name, prof_mgr, prof_name, prog_args):
 	for comp_stub in comp_stubs:
 		comp_stub.insert(context, plan)
 		
-	# Print insert plan
+	# Execute insert plan
 	for op in plan:
-		op.execute(context)
+		operation_execute(op, context)
 		
 #
 # Command delete
@@ -376,9 +386,9 @@ def command_delete(prog_name, prof_mgr, prof_name, prog_args):
 	for comp_stub in comp_stubs:
 		comp_stub.delete(context, plan)
 		
-	# Print delete plan
+	# Execute delete plan
 	for op in plan:
-		op.execute(context)
+		operation_execute(op, context)
 		
 #
 # Command update
@@ -422,7 +432,7 @@ def command_update(prog_name, prof_mgr, prof_name, prog_args):
 		
 	# Execute delete plan
 	for op in plan:
-		op.execute(context)
+		operation_execute(op, context)
 		
 	# Update component stub list
 	for op in plan:
@@ -437,5 +447,5 @@ def command_update(prog_name, prof_mgr, prof_name, prog_args):
 		
 	# Execute insert plan
 	for op in plan:
-		op.execute(context)
+		operation_execute(op, context)
 

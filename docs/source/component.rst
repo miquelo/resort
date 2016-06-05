@@ -9,6 +9,7 @@ be developed and used in the same manner. All of them must implement
    :maxdepth: 1
    
    component/resource
+   component/zip
    component/vagrant
    component/packer
    component/maven

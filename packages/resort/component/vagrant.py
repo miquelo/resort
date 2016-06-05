@@ -70,15 +70,15 @@ class BoxFile(VagrantObject):
 	"""
 	Vagrant box from file. Implements :class:`Component`.
 	
-	:param name_fn:
-	   Box name function for the given context.
+	:param name
+	   Contextual box name.
 	:param str image_dir:
-	   Box image directory.
+	   Contextual box image directory.
 	"""
 	
-	def __init__(self, name_fn, image_dir):
+	def __init__(self, name, image_dir):
 	
-		self.__name_fn = name_fn
+		self.__name = name
 		self.__image_dir = image_dir
 		self.__available = None
 		
@@ -105,12 +105,11 @@ class BoxFile(VagrantObject):
 			
 	def __path(self, context):
 	
-		for fname in os.listdir(os.path.join(context.profile_dir(),
-				self.__image_dir)):
+		image_dir = context.resolve(self.__image_dir)
+		for fname in os.listdir(image_dir):
 			if fname.endswith(".box"):
-				return os.path.join(os.path.join(context.profile_dir(),
-						self.__image_dir), fname)
-		raise Exception("Box image not found at {}".format(self.__image_dir))
+				return os.path.join(image_dir, fname)
+		raise Exception("Box image not found at {}".format(image_dir))
 		
 	def available(self, context):
 	
@@ -123,8 +122,8 @@ class BoxFile(VagrantObject):
 		
 		if self.__available is None:
 			avail = False
+			name = context.resolve(self.__name)
 			for box in self.__box_list():
-				name = self.__name_fn(context)
 				if box["name"] == name and box["version"] == "0":
 					avail = True
 					break
@@ -143,7 +142,7 @@ class BoxFile(VagrantObject):
 		self.write([
 			"box",
 			"add",
-			"--name", self.__name_fn(context),
+			"--name", context.resolve(self.__name),
 			self.__path(context)
 		])
 		
@@ -159,7 +158,7 @@ class BoxFile(VagrantObject):
 		self.write([
 			"box",
 			"remove",
-			self.__name_fn(context)
+			context.resolve(self.__name)
 		])
 		
 class Instance(VagrantObject):
@@ -168,15 +167,15 @@ class Instance(VagrantObject):
 	Vagrant instance.
 	
 	:param str config_dir:
-	   Profile relative configuration directory.
-	:param name_fn:
-	   Instance name function for the given context.
+	   Contextual instance configuration directory.
+	:param name:
+	   Contextual instance name.
 	"""
 	
-	def __init__(self, config_dir, name_fn):
+	def __init__(self, config_dir, name):
 	
 		self.__config_dir = config_dir
-		self.__name_fn = name_fn
+		self.__name = name
 		
 	def read(self, context, cmd_args):
 	
@@ -192,10 +191,10 @@ class Instance(VagrantObject):
 		
 		try:
 			current_dir = os.getcwd()
-			os.chdir(os.path.join(context.profile_dir(), self.__config_dir))
+			os.chdir(context.resolve(self.__config_dir))
 			args = []
 			args.extend(cmd_args)
-			args.append(self.__name_fn(context))
+			args.append(context.resolve(self.__name))
 			yield from super().read(args)
 		finally:
 			os.chdir(current_dir)
@@ -214,10 +213,10 @@ class Instance(VagrantObject):
 		
 		try:
 			current_dir = os.getcwd()
-			os.chdir(os.path.join(context.profile_dir(), self.__config_dir))
+			os.chdir(context.resolve(self.__config_dir))
 			args = []
 			args.extend(cmd_args)
-			args.append(self.__name_fn(context))
+			args.append(context.resolve(self.__name))
 			super().write(args)
 		finally:
 			os.chdir(current_dir)
@@ -238,7 +237,7 @@ class Instance(VagrantObject):
 		state = None
 		for line in self.read(context, [
 			"status",
-			self.__name_fn(context)
+			context.resolve(self.__name)
 		]):
 			if line[2] == "state":
 				state = line[3].strip()
