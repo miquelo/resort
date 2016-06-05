@@ -54,11 +54,11 @@ class Context:
 		"""
 		
 		if isinstance(value, collections.Callable):
-			return dict((k, v) for k, v in value({
+			return value({
 				"base_dir": self.__base_dir,
-				"prof_dir": self.__prof_dir,
-				"prof_name": self.__prof_name
-			}))
+				"profile_dir": self.__prof_dir,
+				"profile_name": self.__prof_name
+			})
 		return value
 		
 class Operation:

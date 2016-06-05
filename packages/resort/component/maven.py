@@ -24,7 +24,7 @@ class Project:
 	Maven project. Implements :class:`Component`.
 	
 	:param str base_dir:
-	   Project base directory.
+	   Contextual project base directory.
 	:param bool dependency:
 	   Project must be installed or only packaged.
 	"""
@@ -47,8 +47,8 @@ class Project:
 		subprocess.call([
 			"mvn",
 			"-f",
-			os.path.join(os.path.join(context.base_dir(), self.__base_dir),
-					"pom.xml"),
+			os.path.join(os.path.join(context.resolve(self.__base_dir),
+					"pom.xml")),
 			phase
 		])
 		

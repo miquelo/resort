@@ -70,7 +70,7 @@ class BoxFile(VagrantObject):
 	"""
 	Vagrant box from file. Implements :class:`Component`.
 	
-	:param name
+	:param str name:
 	   Contextual box name.
 	:param str image_dir:
 	   Contextual box image directory.
@@ -168,7 +168,7 @@ class Instance(VagrantObject):
 	
 	:param str config_dir:
 	   Contextual instance configuration directory.
-	:param name:
+	:param str name:
 	   Contextual instance name.
 	"""
 	

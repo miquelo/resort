@@ -204,7 +204,7 @@ class Domain:
 		
 		self.__available = None
 		
-	def application(self, name, context_root, path_fn):
+	def application(self, name, context_root, path):
 	
 		"""
 		Domain application.
@@ -213,13 +213,13 @@ class Domain:
 		   Application name.
 		:param str context_root:
 		   Appliaction context root. May be ``None``.
-		:param path_fn:
-		   File path function with :class:`Context` parameter.
+		:param str path:
+		   Contextual file path.
 		:rtype:
 		   Application
 		"""
 		
-		return Application(self.__endpoint, name, context_root, path_fn)
+		return Application(self.__endpoint, name, context_root, path)
 		
 	def jdbc_resource(self, name, pool_name):
 	
@@ -344,16 +344,16 @@ class Application:
 	   Application name.
 	:param str context_root:
 	   Appliaction context root. May be ``None``.
-	:param path_fn:
-	   File path function with :class:`Context` parameter.
+	:param path:
+	   Contextual file path.
 	"""
 	
-	def __init__(self, endpoint, name, context_root, path_fn):
+	def __init__(self, endpoint, name, context_root, path):
 	
 		self.__endpoint = endpoint
 		self.__name = name
 		self.__context_root = context_root
-		self.__path_fn = path_fn
+		self.__path = path
 		self.__available = None
 		
 	def available(self, context):
@@ -386,7 +386,7 @@ class Application:
 		   Current execution context.
 		"""
 		
-		module_file = open(self.__path_fn(context), "rb")
+		module_file = open(context.resolve(self.__path), "rb")
 		data = {
 			"name": self.__name
 		}
