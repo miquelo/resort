@@ -70,10 +70,10 @@ class BoxFile(VagrantObject):
 	"""
 	Vagrant box from file. Implements :class:`Component`.
 	
-	:param str name:
-	   Contextual box name.
-	:param str image_dir:
-	   Contextual box image directory.
+	:param Contextual name:
+	   Box name.
+	:param Contextual image_dir:
+	   Box image directory.
 	"""
 	
 	def __init__(self, name, image_dir):
@@ -166,10 +166,10 @@ class Instance(VagrantObject):
 	"""
 	Vagrant instance.
 	
-	:param str config_dir:
-	   Contextual instance configuration directory.
-	:param str name:
-	   Contextual instance name.
+	:param Contextual config_dir:
+	   Instance configuration directory.
+	:param Contextual name:
+	   Instance name.
 	"""
 	
 	def __init__(self, config_dir, name):

@@ -23,8 +23,8 @@ class Project:
 	"""
 	Maven project. Implements :class:`Component`.
 	
-	:param str base_dir:
-	   Contextual project base directory.
+	:param Contextual base_dir:
+	   Project base directory.
 	:param bool dependency:
 	   Project must be installed or only packaged.
 	"""

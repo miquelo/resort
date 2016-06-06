@@ -23,12 +23,12 @@ class Set:
 	"""
 	Resource set. Implements :class:`Component`.
 	
-	:param str source_path:
-	   Contextual source path.
-	:param str target_path:
-	   Contextual target path.
-	:param dict props:
-	   Contextual resource properties.
+	:param Contextual source_path:
+	   Source path.
+	:param Contextual target_path:
+	   Target path.
+	:param Contextual props:
+	   Resource properties.
 	"""
 	
 	def __init__(self, source_path, target_path, props):

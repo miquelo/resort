@@ -76,7 +76,7 @@ class Connection:
 		"""
 		Create a database changes component.
 		
-		:param str script_path:
+		:param Contextual script_path:
 		   Path of script file.
 		:rtype:
 		   DatabaseChanges
@@ -93,8 +93,8 @@ class DatabaseChanges:
 	
 	:param Connection conn:
 	   Target connection.
-	:param str script_path:
-	   Contextual script path.
+	:param Contextual script_path:
+	   Script path.
 	"""
 	
 	def __init__(self, conn, script_path):

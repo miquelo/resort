@@ -213,8 +213,8 @@ class Domain:
 		   Application name.
 		:param str context_root:
 		   Appliaction context root. May be ``None``.
-		:param str path:
-		   Contextual file path.
+		:param Contextual path:
+		   File path.
 		:rtype:
 		   Application
 		"""
@@ -344,8 +344,8 @@ class Application:
 	   Application name.
 	:param str context_root:
 	   Appliaction context root. May be ``None``.
-	:param path:
-	   Contextual file path.
+	:param Contextual path:
+	   File path.
 	"""
 	
 	def __init__(self, endpoint, name, context_root, path):
