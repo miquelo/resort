@@ -76,7 +76,7 @@ class Connection:
 		"""
 		Create a database changes component.
 		
-		:param str script_path:
+		:param Contextual script_path:
 		   Path of script file.
 		:rtype:
 		   DatabaseChanges
@@ -93,7 +93,7 @@ class DatabaseChanges:
 	
 	:param Connection conn:
 	   Target connection.
-	:param str script_path:
+	:param Contextual script_path:
 	   Script path.
 	"""
 	
@@ -137,9 +137,9 @@ class DatabaseChanges:
 		   Current execution context.
 		"""
 		
+		script_path = context.resolve(self.__script_path)
 		buf = io.StringIO()
-		self.__preprocess(os.path.join(context.base_dir(),
-				self.__script_path), buf)
+		self.__preprocess(script_path, buf)
 		buf.seek(0)
 		self.__conn.execute(buf.read())
 		

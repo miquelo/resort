@@ -23,26 +23,18 @@ class Set:
 	"""
 	Resource set. Implements :class:`Component`.
 	
-	:param str source_path:
-	   Path relative to base directory.
-	:param str target_path:
-	   Path relaltive to profile working directory.
-	:param dict props:
-	   Resource properties. Property with name ``context`` is reserved.
+	:param Contextual source_path:
+	   Source path.
+	:param Contextual target_path:
+	   Target path.
+	:param Contextual props:
+	   Resource properties.
 	"""
 	
 	def __init__(self, source_path, target_path, props):
 	
-		if os.path.isabs(source_path):
-			msg = "Source path '{}' is absolute"
-			raise Exception(msg.format(source_path))
 		self.__source_path = source_path
-		
-		if os.path.isabs(target_path):
-			msg = "Target path '{}' is absolute"
-			raise Exception(msg.format(target_path))
 		self.__target_path = target_path
-		
 		self.__props = props
 		
 	def __repr__(self):
@@ -62,7 +54,8 @@ class Set:
 				if os.path.isfile(in_path):
 					in_file = open(in_path, "r")
 					out_file = open(out_path, "w")
-					resolver = Resolver(context, out_file, self.__props)
+					props = context.resolve(self.__props)
+					resolver = Resolver(out_file, props)
 					c = in_file.read(1)
 					while len(c) > 0:
 						resolver.update(c)
@@ -102,9 +95,10 @@ class Set:
 		   Current execution context.
 		"""
 		
-		in_path = os.path.join(context.base_dir(), self.__source_path)
-		out_path = os.path.join(context.profile_dir(), self.__target_path)
-		self.__resolve(context, in_path, out_path)
+		self.__resolve(
+			context.resolve(context, self.__source_path),
+			context.resolve(context, self.__target_path)
+		)
 		
 	def delete(self, context):
 	
@@ -128,12 +122,10 @@ class Resolver:
 	   Resolver variables. Variable with name ``context`` is reserved.
 	"""
 	
-	def __init__(self, context, r_out, r_vars):
+	def __init__(self, r_out, r_vars):
 	
-		self.__context = context
 		self.__r_out = r_out
 		self.__r_vars = r_vars
-		self.__r_vars["context"] = self.__context
 		self.__expr = io.StringIO()
 		self.__update = self.__update_plain
 		
@@ -180,7 +172,7 @@ class Resolver:
 		
 	def __resolve(self):
 	
-		resolver = Resolver(self.__context, self.__r_out, self.__r_vars)
+		resolver = Resolver(self.__r_out, self.__r_vars)
 		self.__expr.seek(0)
 		for c in eval(self.__expr.read(), {}, self.__r_vars):
 			resolver.update(c)

@@ -24,9 +24,9 @@ class Image:
 	"""
 	Packer image.
 	
-	:param str base_dir:
+	:param Contextual base_dir:
 	   Template base directory.
-	:param str template_path:
+	:param Contextual template_path:
 	   Template file path relative to ``base_dir``.
 	"""
 	
@@ -66,11 +66,12 @@ class Image:
 		
 		try:
 			current_dir = os.getcwd()
-			os.chdir(os.path.join(context.profile_dir(), self.__base_dir))
+			profile
+			os.chdir(context.resolve(self.__base_dir))
 			args = [
 				"packer",
 				"build",
-				self.__template_path
+				context.resolve(self.__template_path)
 			]
 			subprocess.call(args)
 		finally:

@@ -16,41 +16,33 @@
 #
 
 import os
+import shutil
 import subprocess
 
-class Project:
+class Image:
 
 	"""
-	Maven project. Implements :class:`Component`.
+	Packer image.
 	
-	:param Contextual base_dir:
-	   Project base directory.
-	:param bool dependency:
-	   Project must be installed or only packaged.
+	:param str base_dir:
+	   Template base directory.
+	:param str template_path:
+	   Template file path relative to ``base_dir``.
 	"""
 	
-	def __init__(self, base_dir, dependency=False):
+	def __init__(self, base_dir, template_path):
 	
 		self.__base_dir = base_dir
-		self.__dependency = dependency
+		self.__template_path = template_path
 		
 	def __repr__(self):
 	
 		return "{}.{}({}, {})".format(
 			self.__module__,
 			type(self).__name__,
-			repr(self.__base_dir)
+			repr(self.__base_dir),
+			repr(self.__template_path)
 		)
-		
-	def __execute(self, context, phase):
-	
-		subprocess.call([
-			"mvn",
-			"-f",
-			os.path.join(os.path.join(context.resolve(self.__base_dir),
-					"pom.xml")),
-			phase
-		])
 		
 	def available(self, context):
 	
@@ -66,16 +58,24 @@ class Project:
 	def insert(self, context):
 	
 		"""
-		Build the project.
+		Build the image.
 		
 		:param resort.engine.execution.Context context:
 		   Current execution context.
 		"""
 		
-		if self.__dependency:
-			self.__execute(context, "install")
-		else:
-			self.__execute(context, "package")
+		try:
+			current_dir = os.getcwd()
+			os.chdir(os.path.join(context.profile_dir(), self.__base_dir))
+			args = [
+				"packer",
+				"build",
+				self.__template_path
+			]
+			subprocess.call(args)
+		finally:
+			shutil.rmtree("output-*", ignore_errors=True)
+			os.chdir(current_dir)
 		
 	def delete(self, context):
 	
@@ -86,5 +86,5 @@ class Project:
 		   Current execution context.
 		"""
 		
-		self.__execute(context, "clean")
+		pass
 

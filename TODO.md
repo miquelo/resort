@@ -1,6 +1,6 @@
 TODO
 ====
-* Resources component gives full access to the context. It is potentially
-  dangerous. It should give access to context read only properties such as
-  base_dir or profile_dir.
+* ComponentTask returned by Component.insert(context) and
+  Component.delete(context). Task is executed by ComponentTask.execute(work)
+  method, and cancelled by ComponentTask.cancel() method.
 
