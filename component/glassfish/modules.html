@@ -1,0 +1,1022 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>resort.component.glassfish &mdash; RESORT 0.2.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="RESORT 0.2.2 documentation" href="../../index.html"/>
+        <link rel="up" title="GlassFish application server" href="../glassfish.html"/>
+        <link rel="prev" title="GlassFish application server" href="../glassfish.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> RESORT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Project setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../engine.html">Engine specification</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../component.html">Component catalog</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../resource.html">Profile resource set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vagrant.html">Vagrant environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packer.html">Packer image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maven.html">Maven project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../postgresql.html">PostgreSQL schema</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../glassfish.html">GlassFish application server</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">resort.component.glassfish</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">RESORT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../component.html">Component catalog</a> &raquo;</li>
+      
+          <li><a href="../glassfish.html">GlassFish application server</a> &raquo;</li>
+      
+    <li>resort.component.glassfish</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/component/glassfish/modules.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-resort.component.glassfish">
+<span id="resort-component-glassfish"></span><h1>resort.component.glassfish<a class="headerlink" href="#module-resort.component.glassfish" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="resort.component.glassfish.Endpoint">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">Endpoint</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>GlassFish domain management.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint host.</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; Endpoint port.</li>
+<li><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint username.</li>
+<li><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint password.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.Endpoint.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>res_path</em>, <em>timeout=10.0</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Endpoint.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource path.</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) &#8211; Timeout in seconds.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple with status code and response body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Endpoint.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>res_path</em>, <em>data=None</em>, <em>files=None</em>, <em>timeout=10.0</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Endpoint.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource path.</li>
+<li><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) &#8211; Request parameters for data.</li>
+<li><strong>files</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) &#8211; Request parameters for files.</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) &#8211; Timeout in seconds.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple with status code and response body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Endpoint.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>res_path</em>, <em>timeout=10.0</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Endpoint.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete operation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>res_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource path.</li>
+<li><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) &#8211; Timeout in seconds.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.5)">tuple</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple with status code and response body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.Domain">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">Domain</code><span class="sig-paren">(</span><em>endpoint</em>, <em>avail_timeout</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Domain for an endpoint. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>avail_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) &#8211; Availability check timeout in seconds.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait domain to be available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.5)">Exception</a>:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Domain could not been inserted.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.application">
+<code class="descname">application</code><span class="sig-paren">(</span><em>name</em>, <em>context_root</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Application name.</li>
+<li><strong>context_root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Appliaction context root. May be <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>path</strong> (<a class="reference internal" href="../../engine/interfaces/contextual.html#Contextual" title="Contextual"><em>Contextual</em></a>) &#8211; File path.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.Application" title="resort.component.glassfish.Application">Application</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.jdbc_resource">
+<code class="descname">jdbc_resource</code><span class="sig-paren">(</span><em>name</em>, <em>pool_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.jdbc_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain JDBC resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>pool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource pool name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.JDBCResource" title="resort.component.glassfish.JDBCResource">JDBCResource</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.connector_resource">
+<code class="descname">connector_resource</code><span class="sig-paren">(</span><em>name</em>, <em>pool_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.connector_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain connector resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>pool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource pool name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.ConnectorResource" title="resort.component.glassfish.ConnectorResource">ConnectorResource</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.mail_session">
+<code class="descname">mail_session</code><span class="sig-paren">(</span><em>name</em>, <em>host</em>, <em>username</em>, <em>mail_from</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.mail_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain mail session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail session name.</li>
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail host.</li>
+<li><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail username.</li>
+<li><strong>mail_from</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail &#8220;from&#8221; address.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Extra properties.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.MailSession" title="resort.component.glassfish.MailSession">MailSession</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.custom_resource">
+<code class="descname">custom_resource</code><span class="sig-paren">(</span><em>name</em>, <em>restype</em>, <em>factclass</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.custom_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain custom resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>restype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource type.</li>
+<li><strong>factclass</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource factory class.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Resource properties.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.CustomResource" title="resort.component.glassfish.CustomResource">CustomResource</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.jdbc_connection_pool">
+<code class="descname">jdbc_connection_pool</code><span class="sig-paren">(</span><em>name</em>, <em>res_type</em>, <em>ds_classname</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.jdbc_connection_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain JDBC connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>res_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource type.</li>
+<li><strong>ds_classname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Data source class name.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Connection pool properties.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.JDBCConnectionPool" title="resort.component.glassfish.JDBCConnectionPool">JDBCConnectionPool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Domain.connector_connection_pool">
+<code class="descname">connector_connection_pool</code><span class="sig-paren">(</span><em>name</em>, <em>res_adapter_name</em>, <em>conn_def_name</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Domain.connector_connection_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Domain connector connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>res_adapter_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource adapter name.</li>
+<li><strong>conn_def_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource connection definition name.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Connection pool properties.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#resort.component.glassfish.ConnectorConnectionPool" title="resort.component.glassfish.ConnectorConnectionPool">ConnectorConnectionPool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.Application">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">Application</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>context_root</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Domain application. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Application name.</li>
+<li><strong>context_root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Appliaction context root. May be <code class="docutils literal"><span class="pre">None</span></code>.</li>
+<li><strong>path</strong> (<a class="reference internal" href="../../engine/interfaces/contextual.html#Contextual" title="Contextual"><em>Contextual</em></a>) &#8211; File path.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.Application.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Application.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Application availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Application.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Application.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.Application.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.Application.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undeploy application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.JDBCResource">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">JDBCResource</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>pool_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>JDBC resource. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>pool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource pool name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCResource.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCResource.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCResource.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCResource.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCResource.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCResource.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.ConnectorResource">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">ConnectorResource</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>pool_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Connector resource. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>pool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource pool name.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorResource.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorResource.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorResource.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorResource.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorResource.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorResource.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.MailSession">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">MailSession</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>host</em>, <em>username</em>, <em>mail_from</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.MailSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Mail session. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail session name.</li>
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail host.</li>
+<li><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail username.</li>
+<li><strong>mail_from</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Mail &#8220;from&#8221; address.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Extra properties.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.MailSession.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.MailSession.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mail session availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.MailSession.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.MailSession.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create mail session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.MailSession.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.MailSession.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove mail session.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.CustomResource">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">CustomResource</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>restype</em>, <em>factclass</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.CustomResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Domain resource. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>restype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource type.</li>
+<li><strong>factclass</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource factory class.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Resource properties.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.CustomResource.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.CustomResource.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.CustomResource.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.CustomResource.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.CustomResource.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.CustomResource.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.JDBCConnectionPool">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">JDBCConnectionPool</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>res_type</em>, <em>ds_classname</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCConnectionPool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>JDBC connection pool. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>res_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource type.</li>
+<li><strong>ds_classname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Data source class name.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Connection pool properties.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCConnectionPool.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCConnectionPool.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection pool availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCConnectionPool.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCConnectionPool.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.JDBCConnectionPool.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.JDBCConnectionPool.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.glassfish.ConnectorConnectionPool">
+<em class="property">class </em><code class="descclassname">resort.component.glassfish.</code><code class="descname">ConnectorConnectionPool</code><span class="sig-paren">(</span><em>endpoint</em>, <em>name</em>, <em>res_adapter_name</em>, <em>conn_def_name</em>, <em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorConnectionPool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Connector connection pool. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>endpoint</strong> (<a class="reference internal" href="#resort.component.glassfish.Endpoint" title="resort.component.glassfish.Endpoint"><em>Endpoint</em></a>) &#8211; Domain endpoint.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource name.</li>
+<li><strong>res_adapter_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource adapter name.</li>
+<li><strong>conn_def_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Resource connection definition name.</li>
+<li><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Connection pool properties.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorConnectionPool.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorConnectionPool.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection pool availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorConnectionPool.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorConnectionPool.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.glassfish.ConnectorConnectionPool.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.ConnectorConnectionPool.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove connection pool.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="resort.component.glassfish.domain">
+<code class="descclassname">resort.component.glassfish.</code><code class="descname">domain</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>username</em>, <em>password</em>, <em>avail_timeout=240.0</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint host.</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; Endpoint port.</li>
+<li><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint username.</li>
+<li><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Endpoint password.</li>
+<li><strong>avail_timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) &#8211; Availability check timeout in seconds.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#resort.component.glassfish.Domain" title="resort.component.glassfish.Domain">Domain</a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Domain for the given endpoint parameters.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="resort.component.glassfish.props_value">
+<code class="descclassname">resort.component.glassfish.</code><code class="descname">props_value</code><span class="sig-paren">(</span><em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.glassfish.props_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properties value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Properties dictionary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)">str</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Properties as string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../glassfish.html" class="btn btn-neutral" title="GlassFish application server" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, &#34;Miquel A. Ferran Gonzalez&#34;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

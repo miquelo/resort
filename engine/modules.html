@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>resort.engine &mdash; RESORT 0.2.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="RESORT 0.2.2 documentation" href="../index.html"/>
+        <link rel="up" title="Engine specification" href="../engine.html"/>
+        <link rel="next" title="resort.engine.execution" href="modules/execution.html"/>
+        <link rel="prev" title="Contextual" href="interfaces/contextual.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> RESORT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Project setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../engine.html">Engine specification</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../engine.html#interfaces">Interfaces</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../engine.html#modules">Modules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">resort.engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/execution.html">resort.engine.execution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../component.html">Component catalog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">RESORT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../engine.html">Engine specification</a> &raquo;</li>
+      
+    <li>resort.engine</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/engine/modules.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-resort.engine">
+<span id="resort-engine"></span><h1>resort.engine<a class="headerlink" href="#module-resort.engine" title="Permalink to this headline">¶</a></h1>
+<p>Package containing engine classes.</p>
+<dl class="class">
+<dt id="resort.engine.ProfileManager">
+<em class="property">class </em><code class="descclassname">resort.engine.</code><code class="descname">ProfileManager</code><span class="sig-paren">(</span><em>base_dir</em>, <em>work_dir</em>, <em>profiles</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Manager for profiles located in a directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>base_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Directory path of this manager. Must be absolute.</li>
+<li><strong>work_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Working directory. From base_dir if it is relative.</li>
+<li><strong>profiles</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Dictionary containing profile type and instance entries.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.engine.ProfileManager.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>prof_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileManager.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the profile with the given name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prof_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Profile name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#resort.engine.ProfileStub" title="resort.engine.ProfileStub">ProfileStub</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An stub to loaded profile.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ProfileManager.store">
+<code class="descname">store</code><span class="sig-paren">(</span><em>prof_name</em>, <em>prof_type</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileManager.store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a profile with the given name and type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>prof_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Profile name.</li>
+<li><strong>prof_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Profile type.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.engine.ProfileStub">
+<em class="property">class </em><code class="descclassname">resort.engine.</code><code class="descname">ProfileStub</code><span class="sig-paren">(</span><em>base_dir</em>, <em>prof_name</em>, <em>prof</em>, <em>prof_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileStub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Stub of a <a class="reference internal" href="interfaces/profile.html#Profile" title="Profile"><code class="xref py py-class docutils literal"><span class="pre">Profile</span></code></a> with a <a class="reference internal" href="#resort.engine.ComponentStubRegistry" title="resort.engine.ComponentStubRegistry"><code class="xref py py-class docutils literal"><span class="pre">ComponentStubRegistry</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>prof_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Profile name.</li>
+<li><strong>prof</strong> (<a class="reference internal" href="interfaces/profile.html#Profile" title="Profile"><em>Profile</em></a>) &#8211; Profile instance.</li>
+<li><strong>prof_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Profile working directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.engine.ProfileStub.context">
+<code class="descname">context</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileStub.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an exectution context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context">execution.Context</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The created execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ProfileStub.prepare">
+<code class="descname">prepare</code><span class="sig-paren">(</span><em>props</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileStub.prepare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare stubbed profile and return its properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>props</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) &#8211; Dictionary with previous properties.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.5)">dict</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Properties dictionary.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ProfileStub.component_list">
+<code class="descname">component_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileStub.component_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <a class="reference internal" href="#resort.engine.ComponentStub" title="resort.engine.ComponentStub"><code class="xref py py-class docutils literal"><span class="pre">ComponentStub</span></code></a> instances for this profile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.5)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ProfileStub.component">
+<code class="descname">component</code><span class="sig-paren">(</span><em>comp_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ProfileStub.component" title="Permalink to this definition">¶</a></dt>
+<dd><p>Component with the specified name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Specified component name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#resort.engine.ComponentStub" title="resort.engine.ComponentStub">ComponentStub</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The component stub with the specified name.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.engine.ComponentStub">
+<em class="property">class </em><code class="descclassname">resort.engine.</code><code class="descname">ComponentStub</code><span class="sig-paren">(</span><em>comp_stub_reg</em>, <em>comp_name</em>, <em>prof</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Stub of a <a class="reference internal" href="interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>comp_stub_reg</strong> (<a class="reference internal" href="#resort.engine.ComponentStubRegistry" title="resort.engine.ComponentStubRegistry"><em>ComponentStubRegistry</em></a>) &#8211; Component stub registry.</li>
+<li><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Component name.</li>
+<li><strong>prof</strong> (<a class="reference internal" href="interfaces/profile.html#Profile" title="Profile"><em>Profile</em></a>) &#8211; Owner profile.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.engine.ComponentStub.name">
+<code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Component name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ComponentStub.type_name">
+<code class="descname">type_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.type_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fully qualified name of component class or <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ComponentStub.dependencies">
+<code class="descname">dependencies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield <a class="reference internal" href="#resort.engine.ComponentStub" title="resort.engine.ComponentStub"><code class="xref py py-class docutils literal"><span class="pre">ComponentStub</span></code></a> of dependencies of this component.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ComponentStub.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return component availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.5)">bool</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Component availability.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ComponentStub.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em>, <em>plan</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include an insert operation to the given plan.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>context</strong> (<a class="reference internal" href="modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>execution.Context</em></a>) &#8211; Current execution context.</li>
+<li><strong>plan</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) &#8211; List of <a class="reference internal" href="modules/execution.html#resort.engine.execution.Operation" title="resort.engine.execution.Operation"><code class="xref py py-class docutils literal"><span class="pre">execution.Operation</span></code></a> instances.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.engine.ComponentStub.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em>, <em>plan</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStub.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include a delete operation to the given plan.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>context</strong> (<a class="reference internal" href="modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>execution.Context</em></a>) &#8211; Current execution context.</li>
+<li><strong>plan</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) &#8211; List of <a class="reference internal" href="modules/execution.html#resort.engine.execution.Operation" title="resort.engine.execution.Operation"><code class="xref py py-class docutils literal"><span class="pre">execution.Operation</span></code></a> instances.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.engine.ComponentStubRegistry">
+<em class="property">class </em><code class="descclassname">resort.engine.</code><code class="descname">ComponentStubRegistry</code><span class="sig-paren">(</span><em>prof</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStubRegistry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Registry of <a class="reference internal" href="#resort.engine.ComponentStub" title="resort.engine.ComponentStub"><code class="xref py py-class docutils literal"><span class="pre">ComponentStub</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>prof</strong> (<a class="reference internal" href="interfaces/profile.html#Profile" title="Profile"><em>Profile</em></a>) &#8211; Involved profile.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.engine.ComponentStubRegistry.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>comp_name</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.engine.ComponentStubRegistry.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the specified component.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>comp_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Specified component name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#resort.engine.ComponentStub" title="resort.engine.ComponentStub">ComponentStub</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Specified component stub.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules/execution.html" class="btn btn-neutral float-right" title="resort.engine.execution" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="interfaces/contextual.html" class="btn btn-neutral" title="Contextual" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, &#34;Miquel A. Ferran Gonzalez&#34;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

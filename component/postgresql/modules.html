@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>resort.component.postgresql &mdash; RESORT 0.2.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="RESORT 0.2.2 documentation" href="../../index.html"/>
+        <link rel="up" title="PostgreSQL schema" href="../postgresql.html"/>
+        <link rel="next" title="GlassFish application server" href="../glassfish.html"/>
+        <link rel="prev" title="PostgreSQL schema" href="../postgresql.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> RESORT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Project setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../engine.html">Engine specification</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../component.html">Component catalog</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../resource.html">Profile resource set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vagrant.html">Vagrant environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packer.html">Packer image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maven.html">Maven project</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../postgresql.html">PostgreSQL schema</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">resort.component.postgresql</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../glassfish.html">GlassFish application server</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">RESORT</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../component.html">Component catalog</a> &raquo;</li>
+      
+          <li><a href="../postgresql.html">PostgreSQL schema</a> &raquo;</li>
+      
+    <li>resort.component.postgresql</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/component/postgresql/modules.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-resort.component.postgresql">
+<span id="resort-component-postgresql"></span><h1>resort.component.postgresql<a class="headerlink" href="#module-resort.component.postgresql" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="resort.component.postgresql.Connection">
+<em class="property">class </em><code class="descclassname">resort.component.postgresql.</code><code class="descname">Connection</code><span class="sig-paren">(</span><em>host</em>, <em>port</em>, <em>dbname</em>, <em>username</em>, <em>password</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.Connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>PostgreSQL database connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>host</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Database host.</li>
+<li><strong>port</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) &#8211; Database port.</li>
+<li><strong>dbname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Database name.</li>
+<li><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Database user name.</li>
+<li><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Database password.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.postgresql.Connection.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>script</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.Connection.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>script</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) &#8211; Script to be executed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.postgresql.Connection.database_changes">
+<code class="descname">database_changes</code><span class="sig-paren">(</span><em>script_path</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.Connection.database_changes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a database changes component.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>script_path</strong> (<a class="reference internal" href="../../engine/interfaces/contextual.html#Contextual" title="Contextual"><em>Contextual</em></a>) &#8211; Path of script file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#resort.component.postgresql.DatabaseChanges" title="resort.component.postgresql.DatabaseChanges">DatabaseChanges</a></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Database changes component.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="resort.component.postgresql.DatabaseChanges">
+<em class="property">class </em><code class="descclassname">resort.component.postgresql.</code><code class="descname">DatabaseChanges</code><span class="sig-paren">(</span><em>conn</em>, <em>script_path</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.DatabaseChanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.5)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Database changes. Implements <a class="reference internal" href="../../engine/interfaces/component.html#Component" title="Component"><code class="xref py py-class docutils literal"><span class="pre">Component</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> (<a class="reference internal" href="#resort.component.postgresql.Connection" title="resort.component.postgresql.Connection"><em>Connection</em></a>) &#8211; Target connection.</li>
+<li><strong>script_path</strong> (<a class="reference internal" href="../../engine/interfaces/contextual.html#Contextual" title="Contextual"><em>Contextual</em></a>) &#8211; Script path.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="resort.component.postgresql.DatabaseChanges.available">
+<code class="descname">available</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.DatabaseChanges.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Always returns <code class="docutils literal"><span class="pre">None</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.postgresql.DatabaseChanges.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.DatabaseChanges.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies database changes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="resort.component.postgresql.DatabaseChanges.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#resort.component.postgresql.DatabaseChanges.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does nothing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference internal" href="../../engine/modules/execution.html#resort.engine.execution.Context" title="resort.engine.execution.Context"><em>resort.engine.execution.Context</em></a>) &#8211; Current execution context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../glassfish.html" class="btn btn-neutral float-right" title="GlassFish application server" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../postgresql.html" class="btn btn-neutral" title="PostgreSQL schema" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, &#34;Miquel A. Ferran Gonzalez&#34;.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.2.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
