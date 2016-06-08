@@ -96,8 +96,9 @@ class Set:
 		"""
 		
 		self.__resolve(
-			context.resolve(context, self.__source_path),
-			context.resolve(context, self.__target_path)
+			context,
+			context.resolve(self.__source_path),
+			context.resolve(self.__target_path)
 		)
 		
 	def delete(self, context):

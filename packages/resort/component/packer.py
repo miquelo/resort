@@ -66,7 +66,6 @@ class Image:
 		
 		try:
 			current_dir = os.getcwd()
-			profile
 			os.chdir(context.resolve(self.__base_dir))
 			args = [
 				"packer",
