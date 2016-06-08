@@ -23,6 +23,7 @@ import colorama
 import io
 import os
 import sys
+import traceback
 
 #
 # Entry point
@@ -185,7 +186,7 @@ def operation_execute(op, context):
 	try:
 		op.execute(context)
 	except Exception as ex:
-		print(ex)
+		traceback.print_exc(file=sys.stdout)
 		
 #
 # Command init
