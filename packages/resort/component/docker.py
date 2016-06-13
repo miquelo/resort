@@ -15,76 +15,12 @@
 # along with RESORT.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-import shutil
-import subprocess
-
-class Image:
+class Endpoint:
 
 	"""
-	Packer image.
-	
-	:param str base_dir:
-	   Template base directory.
-	:param str template_path:
-	   Template file path relative to ``base_dir``.
+	Docker endpoint.
 	"""
-	
-	def __init__(self, base_dir, template_path):
-	
-		self.__base_dir = base_dir
-		self.__template_path = template_path
-		
-	def __repr__(self):
-	
-		return "{}.{}({}, {})".format(
-			self.__module__,
-			type(self).__name__,
-			repr(self.__base_dir),
-			repr(self.__template_path)
-		)
-		
-	def available(self, context):
-	
-		"""
-		Always return ``None``.
-		
-		:param resort.engine.execution.Context context:
-		   Current execution context.
-		"""
-		
-		return None
-		
-	def insert(self, context):
-	
-		"""
-		Build the image.
-		
-		:param resort.engine.execution.Context context:
-		   Current execution context.
-		"""
-		
-		try:
-			current_dir = os.getcwd()
-			os.chdir(os.path.join(context.profile_dir(), self.__base_dir))
-			args = [
-				"packer",
-				"build",
-				self.__template_path
-			]
-			subprocess.call(args)
-		finally:
-			shutil.rmtree("output-*", ignore_errors=True)
-			os.chdir(current_dir)
-		
-	def delete(self, context):
-	
-		"""
-		Does nothing.
-		
-		:param resort.engine.execution.Context context:
-		   Current execution context.
-		"""
-		
+
+	def __init__(self):
+
 		pass
-

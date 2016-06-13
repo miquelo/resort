@@ -1,8 +1,7 @@
-Profile resource set
-====================
+Resource set
+============
 
 .. toctree::
    :maxdepth: 1
-   
-   resource/modules
 
+   resource/modules

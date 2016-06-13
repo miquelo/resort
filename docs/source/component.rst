@@ -7,11 +7,11 @@ be developed and used in the same manner. All of them must implement
 
 .. toctree::
    :maxdepth: 1
-   
+
    component/resource
    component/vagrant
+   component/docker
    component/packer
    component/maven
    component/postgresql
    component/glassfish
-
