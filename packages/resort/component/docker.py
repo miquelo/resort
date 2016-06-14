@@ -24,3 +24,32 @@ class Endpoint:
 	def __init__(self):
 
 		pass
+
+	def build(self, name):
+
+		"""
+		Build an image.
+
+		:param Contextual name:
+		   Image name.
+		:rtype:
+		   Image
+		"""
+
+		return Image(self, name)
+
+class Image:
+
+	"""
+	Docker image. Implements :class:`Component`.
+
+	:param docker.Endpoint endpoint:
+	   Docker endpoint.
+	:param Contextual name:
+	   Image name.
+	"""
+
+	def __init__(self, endpoint, name):
+
+		self.__endpoint = endpoint
+		self.__name = name
