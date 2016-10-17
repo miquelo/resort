@@ -30,7 +30,8 @@ Version 0.3
   En un fitxer del directori "state" es manté el hash de l'últim commit, que es
   sobreescriu al final de cada consulta de l'estat. L'estat es considera canviat
   quan no hi ha fitxer de hash d'últim commit, o bé quan el commit actual té un
-  hash diferent del que hi ha en aquest fitxer.
+  hash diferent del que hi ha en aquest fitxer, o bé quan hi ha "untracked
+  files".
 
 BÁSICO-2
 --------
