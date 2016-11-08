@@ -23,7 +23,7 @@ Version 0.3
   - work/
   - profile.ini
 * Terme "Inspector", per monitoritzar els components. Un component pot disposar
-  de diversos monitors. És un terme complex.
+  de diversos inspectors. És un terme complex.
 
 BÁSICO-2
 --------
