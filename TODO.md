@@ -22,16 +22,8 @@ Version 0.3
   - state/
   - work/
   - profile.ini
-* LocalGitComponentState. Comprova si ha canviat l'estat dels directoris
-  indicats mitjançant una operació equivalent a "git status \<directoris\>".
-  - http://gitpython.readthedocs.io/en/stable/index.html
-  - http://stackoverflow.com/questions/17224134/check-status-of-local-python-relative-to-remote-with-gitpython
-  
-  En un fitxer del directori "state" es manté el hash de l'últim commit, que es
-  sobreescriu al final de cada consulta de l'estat. L'estat es considera canviat
-  quan no hi ha fitxer de hash d'últim commit, o bé quan el commit actual té un
-  hash diferent del que hi ha en aquest fitxer, o bé quan hi ha "untracked
-  files".
+* Terme "Inspector", per monitoritzar els components. Un component pot disposar
+  de diversos monitors. És un terme complex.
 
 BÁSICO-2
 --------
